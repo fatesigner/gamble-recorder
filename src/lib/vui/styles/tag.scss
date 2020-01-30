@@ -1,0 +1,59 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+.vui-tags {
+  margin: -2px -4px;
+  .vui-tag {
+    margin: 2px 4px;
+  }
+}
+
+.vui-tag {
+  display: inline-block;
+  background-color: map-get($colors, primary);
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.vui-tag-primary {
+  background-color: map-get($colors, primary);
+}
+
+.vui-tag-secondary {
+  background-color: map-get($colors, secondary);
+}
+
+.vui-tag-danger {
+  background-color: map-get($colors, danger);
+}
+
+.vui-tag-light {
+  background-color: map-get($colors, light);
+}
+
+.vui-tag-dark {
+  background-color: map-get($colors, dark);
+  color: #333;
+}
+
+.vui-tag-calm {
+  background-color: map-get($colors, calm);
+}
+
+.vui-tag-balanced {
+  background-color: map-get($colors, balanced);
+}
+
+.vui-tag-energized {
+  background-color: map-get($colors, energized);
+}
+
+.vui-tag-assertive {
+  background-color: map-get($colors, assertive);
+}
+
+.vui-tag-royal {
+  background-color: map-get($colors, royal);
+}

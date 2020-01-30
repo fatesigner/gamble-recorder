@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      牌局
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/party/']">新建</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="parties.done && parties.value">
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of parties.value">
+        <ion-item [routerLink]="['/records/' + item.id]">
+          <div class="vui-col vui-padding-top vui-padding-bottom">
+            <div class="vui-row">
+              <span class="vui-g3">{{item.title}}</span>
+            </div>
+            <div class="vui-row vui-no-padding">
+              <div class="vui-col vui-col-fluid vui-mt10 vui-ml5">
+                <ion-badge class="vui-mr5" color="secondary"><span class="vui-f12">友 {{item.partners.length}}</span></ion-badge>
+                <ion-badge class="vui-mr5" color="light"><span class="vui-f12">局 {{item.records.length}}</span></ion-badge>
+              </div>
+              <div class="vui-col-static vui-f12 vui-g9 vui-align-self-bottom">
+                {{item.datetime | date:'yyyy-MM-dd HH:mm:ss'}}
+              </div>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="secondary" (click)="remove(item)">删除</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <div class="vui-tc vui-mt20" *ngIf="parties.value.length == 0; else fab" padding>
+      <ion-button color="primary" size="large" [routerLink]="['/party/']">添加牌局</ion-button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!parties.done">
+    <div class="vui-tc" padding>
+      <ion-spinner></ion-spinner>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="parties.failed">
+    <div class="vui-mt20 vui-tc">
+      <p>{{parties.err}}</p>
+      <ion-button color="secondary" (click)="parties.reload()">
+        <ion-icon name="refresh"></ion-icon>&nbsp;重新加载
+      </ion-button>
+    </div>
+  </ng-container>
+  <ng-template #fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button [routerLink]="['/party/']" color="secondary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,31 @@
+@import '../../theme/variables';
+
+.total {
+  .title {
+    font-size: 16px;
+    line-height: 36px;
+    color: #333;
+  }
+
+  .desc {
+    padding-left: 10px;
+    font-size: 13px;
+    line-height: 28px;
+    color: #999;
+  }
+
+  .num {
+    padding: 0 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--ion-color-tertiary);
+
+    &.plus {
+      color: #60bd63;
+    }
+
+    &.diff {
+      color: #de3c3c;
+    }
+  }
+}

@@ -1,0 +1,1041 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+/**
+ * Common CSS
+ * --------------------------------------------------
+ * 通用样式库 可以在不添加新的class的情况下 显示些简单的一效果 用于快速布局
+ */
+
+$paddingWidth: 10px;
+$marginWidth: 10px;
+
+// display
+// --------------------------------------------------
+.vui-dn {
+  display: none;
+}
+
+.vui-di {
+  display: inline;
+}
+
+.vui-db {
+  display: block;
+}
+
+// 当元素是inline类型时使用
+.vui-dib {
+  display: inline-block;
+}
+
+// width 百分比
+// --------------------------------------------------
+.vui-w-pct10 {
+  width: 10%;
+}
+
+.vui-w-pct15 {
+  width: 15%;
+}
+
+.vui-w-pct20 {
+  width: 20%;
+}
+
+.vui-w-pct25 {
+  width: 25%;
+}
+
+.vui-w-pct30 {
+  width: 30%;
+}
+
+.vui-w-pct33 {
+  width: 33.3%;
+}
+
+.vui-w-pct40 {
+  width: 40%;
+}
+
+.vui-w-pct50 {
+  width: 50%;
+}
+
+.vui-w-pct60 {
+  width: 60%;
+}
+
+.vui-w-pct66 {
+  width: 66.6%;
+}
+
+.vui-w-pct70 {
+  width: 70%;
+}
+
+.vui-w-pct75 {
+  width: 75%;
+}
+
+.vui-w-pct80 {
+  width: 80%;
+}
+
+.vui-w-pct85 {
+  width: 85%;
+}
+
+.vui-w-pct90 {
+  width: 90%;
+}
+
+.vui-w-pct100 {
+  width: 100%;
+}
+
+// height 百分比
+// --------------------------------------------------
+.vui-h-pct10 {
+  height: 10%;
+}
+
+.vui-h-pct15 {
+  height: 15%;
+}
+
+.vui-h-pct20 {
+  height: 20%;
+}
+
+.vui-h-pct25 {
+  height: 25%;
+}
+
+.vui-h-pct30 {
+  height: 30%;
+}
+
+.vui-h-pct33 {
+  height: 33.3%;
+}
+
+.vui-h-pct40 {
+  height: 40%;
+}
+
+.vui-h-pct50 {
+  height: 50%;
+}
+
+.vui-h-pct60 {
+  height: 60%;
+}
+
+.vui-h-pct66 {
+  height: 66.6%;
+}
+
+.vui-h-pct70 {
+  height: 70%;
+}
+
+.vui-h-pct75 {
+  height: 75%;
+}
+
+.vui-h-pct80 {
+  height: 80%;
+}
+
+.vui-h-pct85 {
+  height: 85%;
+}
+
+.vui-h-pct90 {
+  height: 90%;
+}
+
+.vui-h-pct100 {
+  height: 100%;
+}
+
+// margin
+// --------------------------------------------------
+.vui-margin {
+  margin: $marginWidth;
+}
+
+.vui-margin-top {
+  margin-top: 10px;
+}
+
+.vui-margin-right {
+  margin-right: 10px;
+}
+
+.vui-margin-bottom {
+  margin-bottom: 10px;
+}
+
+.vui-margin-left {
+  margin-left: 10px;
+}
+
+.vui-m0 {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.vui-mt0 {
+  margin-top: 0;
+}
+
+.vui-mr0 {
+  margin-right: 0;
+}
+
+.vui-mb0 {
+  margin-bottom: 0;
+}
+
+.vui-ml0 {
+  margin-left: 0;
+}
+
+.vui-m1 {
+  margin-top: 1px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  margin-left: 1px;
+}
+
+.vui-mt1 {
+  margin-top: 1px;
+}
+
+.vui-mr1 {
+  margin-right: 1px;
+}
+
+.vui-mb1 {
+  margin-bottom: 1px;
+}
+
+.vui-ml1 {
+  margin-left: 1px;
+}
+
+.vui-m2 {
+  margin-top: 2px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
+
+.vui-mt2 {
+  margin-top: 2px;
+}
+
+.vui-mr2 {
+  margin-right: 2px;
+}
+
+.vui-mb2 {
+  margin-bottom: 2px;
+}
+
+.vui-ml2 {
+  margin-left: 2px;
+}
+
+.vui-m5 {
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.vui-mt5 {
+  margin-top: 5px;
+}
+
+.vui-mr5 {
+  margin-right: 5px;
+}
+
+.vui-mb5 {
+  margin-bottom: 5px;
+}
+
+.vui-ml5 {
+  margin-left: 5px;
+}
+
+.vui-m10 {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.vui-mt10 {
+  margin-top: 10px;
+}
+
+.vui-mr10 {
+  margin-right: 10px;
+}
+
+.vui-mb10 {
+  margin-bottom: 10px;
+}
+
+.vui-ml10 {
+  margin-left: 10px;
+}
+
+.vui-m20 {
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.vui-mt20 {
+  margin-top: 20px;
+}
+
+.vui-mr20 {
+  margin-right: 20px;
+}
+
+.vui-mb20 {
+  margin-bottom: 20px;
+}
+
+.vui-ml20 {
+  margin-left: 20px;
+}
+
+.vui-m30 {
+  margin-top: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+}
+
+.vui-mt30 {
+  margin-top: 30px;
+}
+
+.vui-mr30 {
+  margin-right: 30px;
+}
+
+.vui-mb30 {
+  margin-bottom: 30px;
+}
+
+.vui-ml30 {
+  margin-left: 30px;
+}
+
+// margin negative margin 负值
+// --------------------------------------------------
+.vui-mt-1 {
+  margin-top: -1px;
+}
+
+.vui-mr-1 {
+  margin-right: -1px;
+}
+
+.vui-mb-1 {
+  margin-bottom: -1px;
+}
+
+.vui-ml-1 {
+  margin-left: -1px;
+}
+
+.vui-mt-2 {
+  margin-top: -2px;
+}
+
+.vui-mr-2 {
+  margin-right: 2px;
+}
+
+.vui-mb-2 {
+  margin-bottom: -2px;
+}
+
+.vui-ml-2 {
+  margin-left: -2px;
+}
+
+.vui-mt-5 {
+  margin-top: -5px;
+}
+
+.vui-mr-5 {
+  margin-right: 5px;
+}
+
+.vui-mb-5 {
+  margin-bottom: -5px;
+}
+
+.vui-ml-5 {
+  margin-left: -5px;
+}
+
+.vui-mt-10 {
+  margin-top: -10px;
+}
+
+.vui-mr-10 {
+  margin-right: -10px;
+}
+
+.vui-mb-10 {
+  margin-bottom: -10px;
+}
+
+.vui-ml-10 {
+  margin-left: -10px;
+}
+
+// padding
+// --------------------------------------------------
+.vui-padding {
+  padding: $paddingWidth;
+}
+
+.vui-padding + .vui-padding {
+  margin-top: -$paddingWidth;
+}
+
+.vui-padding-top {
+  padding-top: 10px;
+}
+
+.vui-padding-right {
+  padding-right: 10px;
+}
+
+.vui-padding-bottom {
+  padding-bottom: 10px;
+}
+
+.vui-padding-left {
+  padding-left: 10px;
+}
+
+.vui-p0 {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+.vui-pt0 {
+  padding-top: 0;
+}
+
+.vui-pr0 {
+  padding-right: 0;
+}
+
+.vui-pb0 {
+  padding-bottom: 0;
+}
+
+.vui-pl0 {
+  padding-left: 0;
+}
+
+.vui-p1 {
+  padding-top: 1px;
+  padding-right: 1px;
+  padding-bottom: 1px;
+  padding-left: 1px;
+}
+
+.vui-pt1 {
+  padding-top: 1px;
+}
+
+.vui-pr1 {
+  padding-right: 1px;
+}
+
+.vui-pb1 {
+  padding-bottom: 1px;
+}
+
+.vui-pl1 {
+  padding-left: 1px;
+}
+
+.vui-p2 {
+  padding-top: 2px;
+  padding-right: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+}
+
+.vui-pt2 {
+  padding-top: 2px;
+}
+
+.vui-pr2 {
+  padding-right: 2px;
+}
+
+.vui-pb2 {
+  padding-bottom: 2px;
+}
+
+.vui-pl2 {
+  padding-left: 2px;
+}
+
+.vui-p5 {
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+.vui-pt5 {
+  padding-top: 5px;
+}
+
+.vui-pr5 {
+  padding-right: 5px;
+}
+
+.vui-pb5 {
+  padding-bottom: 5px;
+}
+
+.vui-pl5 {
+  padding-left: 5px;
+}
+
+.vui-p10 {
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.vui-pt10 {
+  padding-top: 10px;
+}
+
+.vui-pr10 {
+  padding-right: 10px;
+}
+
+.vui-pb10 {
+  padding-bottom: 10px;
+}
+
+.vui-pl10 {
+  padding-left: 10px;
+}
+
+.vui-p20 {
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.vui-pt20 {
+  padding-top: 20px;
+}
+
+.vui-pr20 {
+  padding-right: 20px;
+}
+
+.vui-pb20 {
+  padding-bottom: 20px;
+}
+
+.vui-pl20 {
+  padding-left: 20px;
+}
+
+.vui-p30 {
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+}
+
+.vui-pt30 {
+  padding-top: 30px;
+}
+
+.vui-pr30 {
+  padding-right: 30px;
+}
+
+.vui-pb30 {
+  padding-bottom: 30px;
+}
+
+.vui-pl30 {
+  padding-left: 30px;
+}
+
+// color
+// --------------------------------------------------
+.vui-g0 {
+  color: #000;
+}
+
+.vui-g3 {
+  color: #333;
+}
+
+.vui-g6 {
+  color: #666;
+}
+
+.vui-g9 {
+  color: #999;
+}
+
+// font-size
+// --------------------------------------------------
+.vui-f0 {
+  font-size: 0;
+}
+
+.vui-f10 {
+  font-size: 10px;
+}
+
+.vui-f12 {
+  font-size: 12px;
+}
+
+.vui-f13 {
+  font-size: 13px;
+}
+
+.vui-f14 {
+  font-size: 14px;
+}
+
+.vui-f16 {
+  font-size: 16px;
+}
+
+.vui-f18 {
+  font-size: 18px;
+}
+
+.vui-f20 {
+  font-size: 20px;
+}
+
+.vui-f22 {
+  font-size: 22px;
+}
+
+.vui-f24 {
+  font-size: 24px;
+}
+
+// text-align
+// --------------------------------------------------
+.vui-tc {
+  text-align: center;
+}
+
+.vui-tr {
+  text-align: right;
+}
+
+.vui-tl {
+  text-align: left;
+}
+
+.vui-tj {
+  text-align: justify;
+}
+
+// text-decoration
+// --------------------------------------------------
+.vui-tdl {
+  text-decoration: underline;
+}
+
+.vui-tdn, .vui-tdn:hover, .vui-tdn:link, .vui-tdn:active, .vui-tdn a:hover, .vui-tdn a:link, .vui-tdn a:active, a.vui-tdl:hover, a.vui-tdl:link, a.vui-tdl:active {
+  text-decoration: none;
+}
+
+// letter-spacing
+// --------------------------------------------------
+.vui-lt-1 {
+  letter-spacing: -1px;
+}
+
+.vui-lt0 {
+  letter-spacing: 0;
+}
+
+.vui-lt1 {
+  letter-spacing: 1px;
+}
+
+// white-space
+// --------------------------------------------------
+.vui-nowrap {
+  white-space: nowrap;
+}
+
+// word-wrap
+// --------------------------------------------------
+.vui-bk {
+  word-wrap: break-word;
+}
+
+.vui-bk-all {
+  word-break: break-all;
+}
+
+// vertical-align
+// --------------------------------------------------
+.vui-vm {
+  vertical-align: middle;
+}
+
+.vui-vtb {
+  vertical-align: text-bottom;
+}
+
+.vui-vb {
+  vertical-align: bottom;
+}
+
+.vui-vt {
+  vertical-align: top;
+}
+
+.vui-vn {
+  vertical-align: -2px;
+}
+
+// float
+// --------------------------------------------------
+.vui-l {
+  float: left;
+}
+
+.vui-r {
+  float: right;
+}
+
+// clear
+// --------------------------------------------------
+.vui-clear {
+  clear: both;
+}
+
+// position
+// --------------------------------------------------
+.vui-rel {
+  position: relative;
+}
+
+.vui-abs {
+  position: absolute;
+}
+
+// z-index
+// --------------------------------------------------
+.vui-zx1 {
+  z-index: 1;
+}
+
+.vui-zx2 {
+  z-index: 2;
+}
+
+// cursor
+// --------------------------------------------------
+.vui-cur-poi {
+  cursor: pointer;
+}
+
+.vui-cur-def {
+  cursor: default;
+}
+
+// overflow
+// --------------------------------------------------
+.vui-ovh {
+  overflow: hidden;
+}
+
+.vui-ova {
+  overflow: auto;
+}
+
+// 块状元素水平居中
+// --------------------------------------------------
+.vui-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// 清除浮动的影响
+// --------------------------------------------------
+.vui-fix {
+  *zoom: 1;
+  &:after {
+    display: table;
+    content: '';
+    clear: both;
+  }
+}
+
+// 基于display: table-cell的自适应布局
+// --------------------------------------------------
+.vui-cell {
+  display: table-cell;
+  *display: inline-block;
+  width: 2000px;
+  *width: auto;
+}
+
+// 双栏自适应cell部分连续英文字符换行
+// --------------------------------------------------
+.vui-cell-bk {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+// 单行文字溢出虚点显示
+// --------------------------------------------------
+.vui-ell {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+// 大小不定元素垂直居中
+// --------------------------------------------------
+.vui-i-vm {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+
+// 背景图 居中覆盖显示
+// --------------------------------------------------
+.vui-bg-cover {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// 绝对定位隐藏
+// --------------------------------------------------
+.vui-abs-clip {
+  position: absolute;
+  clip: rect(0 0 0 0);
+}
+
+// 绝对定位元素覆盖整个父级盒子 用于元素垂直居中
+// --------------------------------------------------
+.vui-abs-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.vui-abs-out {
+  position: absolute !important;
+  left: -999em !important;
+  top: -999em !important;
+}
+
+// 禁用文本选择功能
+// --------------------------------------------------
+.vui-disable-user-behavior {
+  @include user-select(none);
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
+  -ms-content-zooming: none;
+}
+
+// ie盒模型
+// --------------------------------------------------
+.vui-box-bd {
+  @include box-sizing(border-box);
+}
+
+// background-color
+// --------------------------------------------------
+// bg - 颜色单词
+.vui-bg-navy {
+  background-color: #001f3f;
+}
+
+.vui-bg-blue {
+  background-color: #0074d9;
+}
+
+.vui-bg-aqua {
+  background-color: #7fdbff;
+}
+
+.vui-bg-teal {
+  background-color: #39cccc;
+}
+
+.vui-bg-olive {
+  background-color: #3d9970;
+}
+
+.vui-bg-green {
+  background-color: #2ecc40;
+}
+
+.vui-bg-lime {
+  background-color: #01ff70;
+}
+
+.vui-bg-yellow {
+  background-color: #ffdc00;
+}
+
+.vui-bg-orange {
+  background-color: #ff851b;
+}
+
+.vui-bg-red {
+  background-color: #ff4136;
+}
+
+.vui-bg-fuchsia {
+  background-color: #f012be;
+}
+
+.vui-bg-purple {
+  background-color: #b10dc9;
+}
+
+.vui-bg-maroon {
+  background-color: #85144b;
+}
+
+.vui-bg-white {
+  background-color: #ffffff;
+}
+
+.vui-bg-gray {
+  background-color: #aaaaaa;
+}
+
+.vui-bg-silver {
+  background-color: #dddddd;
+}
+
+.vui-bg-black {
+  background-color: #111111;
+}
+
+.vui-bg-f5 {
+  background-color: #f5f5f5;
+}
+
+// color
+// --------------------------------------------------
+// 颜色单词
+.vui-navy {
+  color: #001f3f;
+}
+
+.vui-blue {
+  color: #0074d9;
+}
+
+.vui-aqua {
+  color: #7fdbff;
+}
+
+.vui-teal {
+  color: #39cccc;
+}
+
+.vui-olive {
+  color: #3d9970;
+}
+
+.vui-green {
+  color: #2ecc40;
+}
+
+.vui-lime {
+  color: #01ff70;
+}
+
+.vui-yellow {
+  color: #ffdc00;
+}
+
+.vui-orange {
+  color: #ff851b;
+}
+
+.vui-red {
+  color: #ff4136;
+}
+
+.vui-fuchsia {
+  color: #f012be;
+}
+
+.vui-purple {
+  color: #b10dc9;
+}
+
+.vui-maroon {
+  color: #85144b;
+}
+
+.vui-white {
+  color: #fff;
+}
+
+.vui-silver {
+  color: #ddd;
+}
+
+.vui-gray {
+  color: #aaa;
+}
+
+.vui-black {
+  color: #111;
+}

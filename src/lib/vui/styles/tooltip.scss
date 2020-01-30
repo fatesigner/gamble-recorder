@@ -1,0 +1,63 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+$bg-color: rgba(0, 0, 0, 0.8);
+$font-color: #fff;
+
+.vui-tooltip {
+  position: absolute;
+  z-index: 10000;
+  font-size: 12px;
+  line-height: 1.4;
+  &.vui-tooltip-up {
+    padding: 5px 0;
+    .vui-tooltip-arrow {
+      bottom: 0;
+      left: 50%;
+      margin-left: -5px;
+      border-top-color: $bg-color;
+      border-width: 5px 5px 0;
+    }
+  }
+  &.vui-tooltip-down {
+    padding: 5px 0;
+    .vui-tooltip-arrow {
+      top: 0;
+      left: 50%;
+      margin-left: -5px;
+      border-bottom-color: $bg-color;
+      border-width: 0 5px 5px;
+    }
+  }
+}
+
+.vui-tooltip-inner {
+  max-width: 200px;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  word-wrap: break-word;
+  border-radius: 3px;
+  background-color: $bg-color;
+  color: $font-color;
+}
+
+.vui-tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: solid transparent;
+}
+
+
+// animation normal
+// ---------------------------------------------------------------------------------------------------------------------
+.vui-tooltip-transition{
+  @include transition-duration(300ms);
+  @include transition-property(opacity);
+  opacity: 1;
+  &.vui-tooltip-enter, &.vui-tooltip-leave {
+    opacity: 0;
+  }
+}

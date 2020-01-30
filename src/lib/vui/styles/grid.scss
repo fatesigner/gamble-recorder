@@ -1,0 +1,97 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+// grid
+// --------------------------------------------------
+.vui-grid {
+  position: relative;
+  background-color: #fff;
+  overflow: hidden;
+  &.vui-has-border-top > .vui-row:first-child:before, &.vui-has-border-bottom > .vui-row:last-child:after {
+    height: 1px;
+  }
+  > .vui-row {
+    position: relative;
+    @include flex-wrap(wrap);
+    margin-left: -1px;
+    margin-right: -1px;
+    padding: 0;
+    overflow: hidden;
+    &:first-child:before, &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      @include transform(scaleY(.5));
+      background-color: map-get($grid, border-color);
+    }
+    &:first-child:before {
+      top: 0;
+      right: 0;
+    }
+    &:after {
+      bottom: 0;
+      left: 0;
+    }
+    &:not(:last-child):after {
+      height: 1px;
+    }
+    > .vui-col, > [class^="vui-col-"], > [class*=" vui-col-"] {
+      position: relative;
+      @include transition-duration(300ms);
+      text-decoration: none;
+      cursor: pointer;
+      &:first-child:before, &:after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        @include transform(scaleX(.5));
+        background-color: map-get($grid, border-color);
+      }
+      &:first-child:before {
+        bottom: 0;
+        left: 0;
+      }
+      &:after {
+        top: 0;
+        right: 0;
+      }
+      &:not(:last-child):after {
+        width: 1px;
+      }
+      /*&:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 100%;
+        @include transform(scaleX(.5));
+        background-color: map-get($grid, border-color);
+      }*/
+    }
+  }
+  > .vui-row + .vui-row {
+    margin-top: 0;
+  }
+}
+
+// media
+// ---------------------------------------------------------------------------------------------------------------------
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  .vui-grid {
+    &:before, &:after {
+      @include transform(scaleX(.33));
+    }
+    > .vui-row {
+      &:first-child:before, &:after {
+        @include transform(scaleY(.33));
+      }
+      > .vui-col, > [class^="vui-col-"], > [class*=" vui-col-"] {
+        &:after {
+          @include transform(scaleX(.33));
+        }
+      }
+    }
+  }
+}

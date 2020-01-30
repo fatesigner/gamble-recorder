@@ -1,0 +1,44 @@
+.partner-input {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+
+  dt {
+    flex: 1;
+    font-size: 13px;
+    color: #333;
+  }
+
+  dd {
+    ion-input {
+      width: 120px;
+      padding: 0 10px !important;
+      margin-left: 10px;
+    }
+
+    .sign {
+      display: inline-block;
+      width: 30px;
+      color: #333;
+    }
+  }
+
+  &.win {
+    dd ion-input {
+      background-color: #f0fff8;
+    }
+  }
+
+  &.winone {
+    ion-input {
+      font-weight: bold;
+      color: green;
+    }
+  }
+
+  &:not(.win):not(.winone) {
+    dd ion-input {
+      background-color: #eee;
+    }
+  }
+}

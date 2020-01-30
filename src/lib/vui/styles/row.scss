@@ -1,0 +1,193 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+// row
+// --------------------------------------------------
+.vui-row {
+  @include display-flex;
+  padding: map-get($row, padding-width) / 2;
+}
+
+.vui-justify-content-end {
+  @include justify-content(flex-end);
+}
+
+.vui-justify-content-center {
+  @include justify-content(center);
+}
+
+.vui-justify-content-between {
+  @include justify-content(space-between);
+}
+
+.vui-justify-content-around {
+  @include justify-content(space-around);
+}
+
+.vui-align-content-center {
+  @include align-content(center);
+}
+
+.vui-align-content-between {
+  @include align-content(space-between);
+}
+
+.vui-align-content-around {
+  @include align-content(space-around);
+}
+
+.vui-align-items-center {
+  @include align-items(center);
+}
+
+.vui-align-items-start {
+  @include align-items(flex-start);
+}
+
+.vui-align-items-end {
+  @include align-items(flex-end);
+}
+
+.vui-flex-direction-column {
+  @include flex-direction(column);
+}
+
+.vui-row-wrap {
+  @include flex-wrap(wrap);
+}
+
+.vui-row.vui-no-padding {
+  padding: 0;
+  > .vui-col,
+  > [class^="vui-col-"],
+  > [class*=" vui-col-"] {
+    padding: 0;
+  }
+}
+
+.vui-row + .vui-row {
+  margin-top: (map-get($row, padding-width) / 2) * -1;
+}
+
+// col
+// --------------------------------------------------
+.vui-col,
+[class^="vui-col-"],
+[class*=" vui-col-"] {
+  padding: map-get($row, padding-width) / 2;
+  &.vui-no-padding {
+    padding: 0;
+  }
+}
+
+.vui-col {
+  @include flex(1);
+  display: block;
+  width: 100%;
+}
+
+.vui-align-self-top {
+  @include align-self(flex-start);
+}
+
+.vui-align-self-bottom {
+  @include align-self(flex-end);
+}
+
+.vui-align-self-center {
+  @include align-self(center);
+}
+
+.vui-col-fix {
+  width: 1px;
+  overflow: hidden;
+}
+
+.vui-col-static {
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.vui-col-auto {
+  word-wrap: break-word;
+}
+
+// 连续英文字符换行
+.vui-col-fluid {
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.vui-col-10 {
+  @include flex(0, 0, 10%);
+  width: 10%;
+  max-width: 10%;
+}
+
+.vui-col-20 {
+  @include flex(0, 0, 20%);
+  width: 20%;
+  max-width: 20%;
+}
+
+.vui-col-25 {
+  @include flex(0, 0, 25%);
+  width: 25%;
+  max-width: 25%;
+}
+
+.vui-col-33,
+.vui-col-34 {
+  @include flex(0, 0, 33.3333%);
+  width: 33.3333%;
+  max-width: 33.3333%;
+}
+
+.vui-col-40 {
+  @include flex(0, 0, 40%);
+  width: 40%;
+  max-width: 40%;
+}
+
+.vui-col-50 {
+  @include flex(0, 0, 50%);
+  width: 50%;
+  max-width: 50%;
+}
+
+.vui-col-60 {
+  @include flex(0, 0, 60%);
+  width: 60%;
+  max-width: 60%;
+}
+
+.vui-col-66,
+.vui-col-67 {
+  @include flex(0, 0, 66.6666%);
+  width: 66.6666%;
+}
+
+.vui-col-75 {
+  @include flex(0, 0, 75%);
+  width: 75%;
+  max-width: 75%;
+}
+
+.vui-col-80 {
+  @include flex(0, 0, 80%);
+  width: 80%;
+  max-width: 80%;
+}
+
+.vui-col-90 {
+  @include flex(0, 0, 90%);
+  width: 90%;
+  max-width: 90%;
+}
+
+.vui-col-100 {
+  @include flex(0, 0, 100%);
+  width: 100%;
+  max-width: 100%;
+}

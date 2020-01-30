@@ -1,0 +1,130 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+input[readonly] {
+  pointer-events: none;
+}
+
+input:not([type=checkbox]):not([type=radio]):not([readonly]):not([disabled]) {
+  @include appearance(none);
+}
+
+// Checker
+// --------------------------------------------------
+.vui-checker {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  input[type=checkbox] {
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 22px;
+    border: 0;
+    background: transparent;
+    @include appearance(none);
+    cursor: pointer;
+    &:before {
+      content: ' ';
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #c7c7cc;
+      border-radius: 50%;
+      background-color: #fff;
+      @include transition(background-color 20ms ease-in-out);
+    }
+    &:checked:before {
+      background: #387ef5;
+      border-color: #387ef5;
+    }
+    &:after {
+      content: ' ';
+      position: absolute;
+      top: 50%;
+      margin-top: -5px;
+      left: 50%;
+      margin-left: -6px;
+      width: 12px;
+      height: 6px;
+      border: solid #fff;
+      border-width: 0 0 1px 1px;
+      opacity: 0;
+      @include transition(opacity .05s ease-in-out);
+      @include rotate(-45deg);
+    }
+    &:checked:after {
+      opacity: 1;
+    }
+  }
+}
+
+// Switch
+// --------------------------------------------------
+.vui-switch {
+  position: relative;
+  display: inline-block;
+  width: 2.6rem * $rem-ratio ;
+  height: 1.6rem * $rem-ratio ;
+  vertical-align: middle;
+  @include border-radius(.8rem * $rem-ratio );
+  @include align-self(center);
+  cursor: pointer;
+  input[type="checkbox"] {
+    display: none;
+    &:checked + span {
+      background-color: map-get($base, color);
+      &:before {
+        transform: scale(0);
+      }
+      &:after {
+        transform: translate3d(20px, 0, 0);
+      }
+    }
+  }
+  > span {
+    content: '';
+    position: relative;
+    display: block;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    width: 2.6rem * $rem-ratio ;
+    height: 1.6rem * $rem-ratio ;
+    border: none;
+    outline: none;
+    @include border-radius(.8rem * $rem-ratio );
+    @include appearance(none);
+    @include transition-duration(300ms);
+    background-color: #e5e5e5;
+    cursor: pointer;
+    &:before {
+      content: ' ';
+      position: absolute;
+      z-index: 1;
+      top: 0.1rem * $rem-ratio ;
+      left: 0.1rem * $rem-ratio ;
+      width: 2.4rem * $rem-ratio ;
+      height: 1.4rem * $rem-ratio ;
+      @include border-radius(.8rem * $rem-ratio );
+      @include transform(scale(1));
+      background-color: #fff;
+      @include transition-duration(300ms);
+    }
+    &:after {
+      content: ' ';
+      position: absolute;
+      z-index: 2;
+      top: 0.1rem * $rem-ratio ;
+      left: 0.1rem * $rem-ratio ;
+      width: 1.4rem * $rem-ratio ;
+      height: 1.4rem * $rem-ratio ;
+      @include border-radius(1.4rem * $rem-ratio );
+      @include transform(translateX(0px));
+      @include box-shadow(0 0.1rem * $rem-ratio  0.25rem * $rem-ratio  rgba(0, 0, 0, 0.4));
+      background-color: #fff;
+      @include transition-duration(300ms);
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>添加记录</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-item>
+    <ion-label>赢家</ion-label>
+    <ion-select interface="popover" placeholder="选择一位牌友" ok-text="确定" cancel-text="取消"
+                [(ngModel)]="selectedWinman" multiple>
+      <ion-select-option *ngFor="let partner of party.partners" [value]="partner.id">
+        {{partner.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ng-container *ngIf="selectedWinman.length;else chosad">
+    <ion-item>
+      <div class="vui-col vui-no-padding">
+        <div class="vui-mt10 vui-f12 vui-g9">
+           赢&nbsp;<strong class="vui-green">{{totalDiff.add}}</strong>
+          &nbsp;输&nbsp;<strong class="vui-red">{{totalDiff.minus}}</strong>
+          &nbsp;差&nbsp;<strong class="vui-red">{{totalDiff.add - totalDiff.minus}}</strong>
+        </div>
+        <dl class="partner-input"
+            *ngFor="let sum of record.sums"
+            [ngClass]="{ win: selectedWinman.indexOf(sum.partner.id) > -1, winone: selectedWinman.indexOf(sum.partner.id) > -1 && selectedWinman.length === 1 }">
+          <dt>{{sum.partner.name}}</dt>
+          <dd *ngIf="selectedWinman.indexOf(sum.partner.id) > -1; else afas">
+            <div class="vui-row vui-no-padding vui-align-items-center"
+            *ngIf="selectedWinman.length === 1; else dasf">
+              <ion-icon name="add" color="#999"></ion-icon><ion-input [value]="sum.diff" readonly></ion-input>
+            </div>
+          </dd>
+          <ng-template #dasf>
+            <div class="vui-row vui-no-padding vui-align-items-center">
+              <ion-icon name="add"></ion-icon>
+              <ion-input placeholder="赢了多少"
+                         type="number"
+                         pattern="[0-9]*"
+                         [(ngModel)]="sum.diff"
+                         (ngModelChange) ="selectedWinman.length === 1 && onDiffInputChange$.next()"></ion-input>
+            </div>
+          </ng-template>
+          <ng-template #afas>
+            <dd>
+              <div class="vui-row vui-no-padding vui-align-items-center">
+                <ion-icon name="remove"></ion-icon>
+                <ion-input placeholder="输了多少"
+                           type="number"
+                           pattern="[0-9]*"
+                           [(ngModel)]="sum.diff"
+                           (ngModelChange) ="selectedWinman.length === 1 && onDiffInputChange$.next()"></ion-input>
+              </div>
+            </dd>
+          </ng-template>
+        </dl>
+      </div>
+    </ion-item>
+    <div class="vui-tc vui-mt10" padding>
+      <ion-button color="secondary" size="large" expand="block" (click)="submit()">添加</ion-button>
+    </div>
+  </ng-container>
+  <ng-template #chosad>
+    <p class="vui-padding vui-f14 vui-g9">请至少先选择一位赢家</p>
+  </ng-template>
+</ion-content>

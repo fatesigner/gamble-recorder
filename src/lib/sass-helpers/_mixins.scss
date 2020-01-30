@@ -1,0 +1,541 @@
+﻿@charset "UTF-8";
+@import "src/lib/sass-helpers/functions";
+
+// 各个浏览器的属性前缀，true表示开启，false表示不开启
+//-----------------------------------------------------
+$prefixForWebkit: true !default;
+$prefixForMoz: true !default;
+$prefixForMicrosoft: true !default;
+$prefixForOpera: false !default; // opera从版本15开始转向webkit，所以默认为false，不输出o前缀
+$prefixDef: true !default;
+
+// 用于 display-flex 的兼容变量
+$flexOld: true !default; // 09版本 用于兼容移动端，-webkit前缀
+$flexMid: true !default; // 用于ie10 -ms前缀
+
+// prefix
+// 用于在属性上加前缀
+// 默认这里将只输出webkit前缀和标准（如果要开启opera的可以将$prefixForOpera设置为true）
+//-----------------------------------------------------
+@mixin prefix($property, $value, $prefixes:webkit moz o ms def) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit and $prefixForWebkit == true {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz and $prefixForMoz == true {
+      -moz-#{$property}: $value;
+    } @else if $prefix == o and $prefixForOpera == true {
+      -o-#{$property}: $value;
+    } @else if $prefix == ms and $prefixForMicrosoft == true {
+      -ms-#{$property}: $value;
+    } @else if $prefix == def and $prefixDef == true {
+      #{$property}: $value;
+    }
+  }
+}
+
+// disable prefix
+// 设置所有前缀和标准为false，用于@keyframes
+@mixin disable-prefix-for-all() {
+  $prefixForWebkit: false !global;
+  $prefixForMoz: false !global;
+  $prefixForOpera: false !global;
+  $prefixForMicrosoft: false !global;
+  $prefixDef: false !global;
+}
+
+// appearance
+// --------------------------------
+@mixin appearance($value) {
+  @include prefix(appearance, $value, webkit moz ms);
+}
+
+// link hover、active color...
+// --------------------------------
+@mixin link-color($value) {
+  &:hover, &:link, &:active, &:visited {
+    color: $value;
+  }
+}
+
+// user-select
+// --------------------------------
+@mixin user-select($value) {
+  @include prefix(user-select, $value);
+}
+
+@mixin box-sizing($value) {
+  @include prefix(box-sizing, $value);
+}
+
+// border-radius
+// 不建议使用
+// --------------------------------
+@mixin border-radius($value) {
+  // @include prefix(border-radius, $value, webkit);
+  border-radius: $value;
+}
+
+// border-radius single corner
+@mixin border-top-left-radius($value) {
+  // @include prefix(border-top-left-radius, $value, webkit);
+  border-top-left-radius: $value;
+}
+
+@mixin border-top-right-radius($value) {
+  // @include prefix(border-top-right-radius, $value, webkit);
+  border-top-right-radius: $value;
+}
+
+@mixin border-bottom-right-radius($value) {
+  // @include prefix(border-bottom-right-radius, $value, webkit);
+  border-bottom-right-radius: $value;
+}
+
+@mixin border-bottom-left-radius($value) {
+  // @include prefix(border-bottom-left-radius, $value, webkit);
+  border-bottom-left-radius: $value;
+}
+
+// border-radius single side
+@mixin border-top-radius($value) {
+  // @include prefix(border-top-right-radius, $value, webkit);
+  // @include prefix(border-top-left-radius, $value, webkit);
+  @include border-top-right-radius($value);
+  @include border-top-left-radius($value);
+}
+
+@mixin border-right-radius($value) {
+  // @include prefix(border-top-right-radius, $value, webkit);
+  // @include prefix(border-bottom-right-radius, $value, webkit);
+  @include border-top-right-radius($value);
+  @include border-bottom-right-radius($value);
+}
+
+@mixin border-bottom-radius($value) {
+  // @include prefix(border-bottom-right-radius, $value, webkit);
+  // @include prefix(border-bottom-left-radius, $value, webkit);
+  @include border-bottom-right-radius($value);
+  @include border-bottom-left-radius($value);
+}
+
+@mixin border-left-radius($value) {
+  // @include prefix(border-top-left-radius, $value, webkit);
+  // @include prefix(border-bottom-left-radius, $value, webkit);
+  @include border-top-left-radius($value);
+  @include border-bottom-left-radius($value);
+}
+
+// box-shadow
+// --------------------------------
+@mixin box-shadow($properties...) {
+  @include prefix(box-shadow, $properties, webkit moz def);
+}
+
+// linear-gradient
+// --------------------------------
+/// Mixin printing a linear-gradient
+/// as well as a plain color fallback
+/// and the `-webkit-` prefixed declaration
+/// @access public
+/// @param {Keyword | Angle} $direction - Linear gradient direction
+/// @param {Arglist} $color-stops - List of color-stops composing the gradient
+@mixin linear-gradient($direction, $color-stops...) {
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}
+
+// transition
+// --------------------------------
+@mixin transition($properties...) {
+  @if length($properties) >= 1 {
+    @include prefix(transition, $properties);
+  } @else {
+    $properties: all 0.3s ease;
+    @include prefix(transition, $properties);
+  }
+}
+
+@mixin transition-delay($value) {
+  @include prefix(transition-delay, $value, webkit def);
+}
+
+@mixin transition-duration($value) {
+  @include prefix(transition-duration, $value, webkit def);
+}
+
+@mixin transition-timing-function($value) {
+  @include prefix(transition-timing-function, $value, webkit def);
+}
+
+@mixin transition-property($properties...) {
+  @include prefix(transition-property, $properties, webkit def);
+}
+
+// animation
+// --------------------------------
+@mixin animation($value) {
+  @include prefix(animation, $value, webkit def);
+}
+
+@mixin animation-delay($value) {
+  @include prefix(animation-delay, $value, webkit def);
+}
+
+@mixin animation-duration($value) {
+  @include prefix(animation-duration, $value, webkit def);
+}
+
+@mixin animation-direction($value) {
+  @include prefix(animation-direction, $value, webkit def);
+}
+
+@mixin animation-timing-function($value) {
+  @include prefix(animation-timing-function, $value, webkit def);
+}
+
+@mixin animation-fill-mode($value) {
+  @include prefix(animation-fill-mode, $value, webkit def);
+}
+
+@mixin animation-name($value...) {
+  @include prefix(animation-name, $value, webkit def);
+}
+
+@mixin animation-iteration-count($value) {
+  @include prefix(animation-iteration-count, $value, webkit def);
+}
+
+// transform
+// --------------------------------
+@mixin transform($value) {
+  @include prefix(transform, $value, webkit def);
+}
+
+@mixin transform-origin($left, $top) {
+  @include prefix(transform-origin, ($left $top), webkit def);
+}
+
+@mixin rotate($value) {
+  @include transform(rotate($value));
+}
+
+@mixin scale($value) {
+  @include transform(scale($value));
+}
+
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+@mixin skew($x, $y) {
+  @include transform(skew($x, $y));
+
+  -webkit-backface-visibility: hidden;
+}
+
+@mixin translate3d($x, $y, $z) {
+  @include transform(translate3d($x, $y, $z));
+}
+
+@mixin translateX($x) {
+  @include transform(translateX($x));
+}
+
+@mixin translateY($y) {
+  @include transform(translateY($y));
+}
+
+@mixin translateZ($z) {
+  @include transform(translateZ($z));
+}
+
+// display flex
+// --------------------------------
+@mixin display-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin display-inline-flex {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+@mixin flex-direction($value: row) {
+  @if $value == row-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+  } @else if $value == column {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+  } @else if $value == column-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+  }
+
+  -webkit-flex-direction: $value;
+  -moz-flex-direction: $value;
+  -ms-flex-direction: $value;
+  flex-direction: $value;
+}
+
+@mixin flex-wrap($value: nowrap) {
+  // No Webkit Box fallback.
+  -webkit-flex-wrap: $value;
+  -moz-flex-wrap: $value;
+
+  @if $value == nowrap {
+    -ms-flex-wrap: nowrap;
+  } @else {
+    -ms-flex-wrap: $value;
+  }
+
+  flex-wrap: $value;
+}
+
+@mixin flex($fg: 1, $fs: null, $fb: null) {
+  -webkit-box-flex: $fg;
+  -webkit-flex: $fg $fs $fb;
+  -moz-box-flex: $fg;
+  -moz-flex: $fg $fs $fb;
+  -ms-flex: $fg $fs $fb;
+  flex: $fg $fs $fb;
+}
+
+@mixin flex-flow($values: (row nowrap)) {
+  // No Webkit Box fallback.
+  -webkit-flex-flow: $values;
+  -moz-flex-flow: $values;
+  -ms-flex-flow: $values;
+  flex-flow: $values;
+}
+
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+  } @else if $value == flex-end {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+  } @else {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+  }
+
+  -webkit-align-items: $value;
+  -moz-align-items: $value;
+  align-items: $value;
+}
+
+@mixin align-self($value: auto) {
+  -webkit-align-self: $value;
+  -moz-align-self: $value;
+
+  @if $value == flex-start {
+    -ms-flex-item-align: start;
+  } @else if $value == flex-end {
+    -ms-flex-item-align: end;
+  } @else {
+    -ms-flex-item-align: $value;
+  }
+
+  align-self: $value;
+}
+
+@mixin align-content($value: stretch) {
+  -webkit-align-content: $value;
+  -moz-align-content: $value;
+
+  @if $value == flex-start {
+    -ms-flex-line-pack: start;
+  } @else if $value == flex-end {
+    -ms-flex-line-pack: end;
+  } @else {
+    -ms-flex-line-pack: $value;
+  }
+
+  align-content: $value;
+}
+
+@mixin justify-content($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+  } @else if $value == flex-end {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+  } @else if $value == space-between {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+  } @else if $value == space-around {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+  } @else {
+    -webkit-box-pack: $value;
+    -ms-flex-pack: $value;
+  }
+
+  -webkit-justify-content: $value;
+  -moz-justify-content: $value;
+  justify-content: $value;
+}
+
+@mixin flex-order($n) {
+  -webkit-order: $n;
+  -ms-flex-order: $n;
+  order: $n;
+  -webkit-box-ordinal-group: $n;
+}
+
+@mixin flex-shrink($n) {
+  -webkit-flex-shrink: $n;
+  -ms-flex-shrink: 0 $n auto;
+  flex-shrink: $n;
+}
+
+// text
+// --------------------------------
+@mixin text-size-adjust($value: none) {
+  @include prefix(text-size-adjust, $value, webkit moz);
+}
+
+@mixin tap-highlight-transparent() {
+  @include prefix(tap-highlight-transparent, rgba(0, 0, 0, 0), webkit);
+}
+
+@mixin touch-callout($value: none) {
+  @include prefix(touch-callout, $value, webkit);
+}
+
+// 清除浮动的影响
+// --------------------------------
+@mixin clear-fix {
+  &:after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+}
+
+%clear-fix {
+  @include clear-fix;
+}
+
+// background-size cover
+// --------------------------------
+@mixin bg-cover {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+%bg-cover {
+  @include bg-cover;
+}
+
+// 取消下划线
+// --------------------------------
+@mixin text-decoration-none {
+  text-decoration: none;
+
+  &:hover, &:link, &:active, &:visited {
+    text-decoration: none;
+  }
+}
+
+%text-decoration-none {
+  @include text-decoration-none;
+}
+
+// 单行文字溢出虚点显示
+// --------------------------------
+@mixin text-overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+%text-overflow-ellipsis {
+  @include text-overflow-ellipsis;
+}
+
+// box-sizing-border-box
+// --------------------------------
+@mixin box-sizing-border-box {
+  @include box-sizing(border-box);
+}
+
+%box-sizing-border-box {
+  @include box-sizing-border-box;
+}
+
+// tap-highlight-color-transparent
+// --------------------------------
+@mixin tap-highlight-color-transparent {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+%tap-highlight-color-transparent {
+  @include tap-highlight-color-transparent;
+}
+
+// user-select-none
+// --------------------------------
+@mixin user-select-none {
+  @include user-select(none);
+}
+
+%user-select-none {
+  @include user-select-none;
+}
+
+// 文本框控件在输入文字时候会被自动加上一个X
+// --------------------------------
+@mixin remove-ie-input-x {
+  &::-ms-clear {
+    display: none;
+  }
+}
+
+%remove-ie-input-x {
+  @include remove-ie-input-x;
+}
+
+// 绝对定位 铺满容器
+// --------------------------------
+@mixin abs-fill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// keyframes
+// --------------------------------
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @-ms-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}

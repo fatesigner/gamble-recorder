@@ -1,0 +1,85 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+// button-group
+// ---------------------------------------------------------------------------------------------------------------------
+.vui-button-group {
+  @include display-flex;
+  width: 100%;
+}
+
+.vui-button-group > .vui-button {
+  @include flex(1);
+  display: block;
+  @include border-radius(0);
+  margin-left: -1px;
+  overflow: hidden;
+}
+
+.vui-button-group > .vui-button:first-child {
+  margin-left: 0;
+  @include border-radius(.25rem * $rem-ratio  0 0 .25rem * $rem-ratio );
+}
+
+.vui-button-group > .vui-button:last-child {
+  @include border-radius(0 .25rem * $rem-ratio  .25rem * $rem-ratio  0);
+}
+
+.vui-button-group-round {
+  .vui-button {
+    &:first-child {
+      border-radius: 1.35rem * $rem-ratio  0 0 1.35rem * $rem-ratio ;
+    }
+    &:last-child {
+      border-radius: 0 1.35rem * $rem-ratio  1.35rem * $rem-ratio  0;
+    }
+  }
+}
+
+// button-group normal
+// ---------------------------------------------------------------------------------------------------------------------
+.vui-button-group > .vui-button {
+  border-color: #b2b2b2;
+  background: 0, 0;
+  color: #444;
+  &:not(.vui-activated):active {
+    background-color: #e5e5e5;
+  }
+  &.vui-activated {
+    background-color: #e5e5e5;
+    &:active {
+      @include box-shadow(none);
+    }
+  }
+}
+
+// button-group primary
+// ---------------------------------------------------------------------------------------------------------------------
+.vui-button-group-primary > .vui-button {
+  border-color: #0894ec;
+  background: 0, 0;
+  color: #007aff;
+  &:not(.vui-activated):active {
+    background: #ccdef3;
+  }
+  &.vui-activated {
+    background-color: #007aff;
+    color: #fff;
+  }
+}
+
+// button-group success
+// ---------------------------------------------------------------------------------------------------------------------
+.vui-button-group-success > .vui-button {
+  border-color: #04be02;
+  background: 0, 0;
+  color: #04be02;
+  &:not(.vui-activated):active {
+    background-color: #c5f5c3;
+  }
+  &.vui-activated {
+    background-color: #5cb85c;
+    color: #fff;
+  }
+}

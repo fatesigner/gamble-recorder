@@ -1,0 +1,185 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+.vui-item {
+	@include display-flex;
+	width: 100%;
+	min-height: map-get($item, min-height);
+	padding-left: map-get($item, padding-left);
+	font-size: .85rem * $rem-ratio;
+	&.vui-no-padding-left {
+		padding-left: 0;
+		tab-size: 0;
+	}
+	&.vui-no-padding-right {
+		.vui-item-inner {
+			padding-right: 0;
+		}
+	}
+	&.vui-item-input-error:after {
+		content: '';
+		position: absolute;
+		z-index: 1;
+		top: auto;
+		right: auto;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: red;
+	}
+}
+
+a.vui-item {
+	@include text-decoration-none;
+}
+
+.vui-item-inner {
+	position: relative;
+	@include flex(1);
+	padding-top: .5rem * $rem-ratio;
+	padding-right: map-get($item, padding-right);
+	padding-bottom: .45rem * $rem-ratio;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.vui-item-media {
+	@include display-flex;
+	@include flex-wrap;
+	@include align-items(center);
+	padding-top: 0.45rem * $rem-ratio;
+	padding-bottom: 0.5rem * $rem-ratio;
+	.vui-icon, .fa {
+		font-size: 1.2rem * $rem-ratio;
+	}
+}
+
+.vui-item-media + .vui-item-inner {
+	margin-left: .75rem * $rem-ratio;
+}
+
+.vui-item-arrow {
+	position: relative;
+	&:after {
+		content: " ";
+		position: absolute;
+		top: 50%;
+		right: map-get($item, padding-right);
+		width: 10px;
+		height: 10px;
+		margin-top: -5px;
+		@include transform(rotate(45deg));
+		border-style: solid;
+		border-width: 2px 2px 0 0;
+		border-color: map-get($item, arrow-color);
+	}
+	.vui-item-inner {
+		padding-right: map-get($item, padding-right) * 2
+	}
+}
+
+.vui-item-title {
+	position: relative;
+	@include flex-shrink(1);
+	max-width: 100%;
+	font-size: .85rem * $rem-ratio;
+	overflow: hidden;
+}
+
+.vui-item-label {
+	position: relative;
+	@include flex-shrink(0);
+	width: 35%;
+	max-width: 220px;
+	vertical-align: top;
+}
+
+.vui-item-after {
+	@include flex-shrink(0);
+	margin-left: 0.25rem * $rem-ratio;
+	color: #5f646e;
+}
+
+.vui-item-input {
+	width: 100%;
+	@include flex(1);
+	@include align-self(center);
+	@include flex-shrink(1);
+	padding: 0;
+	margin-top: -.1rem * $rem-ratio;
+	margin-bottom: -.1rem * $rem-ratio;
+	overflow: hidden;
+}
+
+.vui-item-subtitle {
+	font-size: .85rem * $rem-ratio;
+}
+
+.vui-item-text {
+	display: -webkit-box;
+	line-height: 1.05rem * $rem-ratio;
+	max-height: 2.1rem * $rem-ratio;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	color: #5f646e;
+	overflow: hidden;
+}
+
+.vui-item-gray {
+	color: #999;
+}
+
+.vui-item-badge {
+	display: inline-block;
+	padding: .1rem * $rem-ratio  .45rem * $rem-ratio  .15rem * $rem-ratio;
+	line-height: 1;
+	font-size: .6rem * $rem-ratio;
+	border-radius: 5rem * $rem-ratio;
+	background-color: rgba(0, 0, 0, .15);
+	color: #3d4145;
+}
+
+.vui-item-link {
+	@include transition-duration(300ms);
+	color: inherit;
+	cursor: pointer;
+}
+
+.vui-item.activated, .vui-item-link:active, .vui-item-link.activated {
+	@include transition-duration(0ms);
+	background-color: #d9d9d9;
+}
+
+.vui-item input[type="text"], .vui-item input[type="password"], .vui-item input[type="search"], .vui-item input[type="email"], .vui-item input[type="tel"], .vui-item input[type="url"], .vui-item input[type="date"], .vui-item input[type="datetime-local"], .vui-item input[type="time"], .vui-item input[type="number"], .vui-item select, .vui-item textarea {
+	display: block;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	font-size: .8rem * $rem-ratio;
+	font-family: inherit;
+	border: none;
+	@include border-radius(0);
+	@include box-shadow(none);
+	background: none;
+	outline: none;
+	color: #000;
+}
+
+.vui-item input[type="text"], .vui-item input[type="password"], .vui-item input[type="search"], .vui-item input[type="email"], .vui-item input[type="tel"], .vui-item input[type="url"], .vui-item input[type="date"], .vui-item input[type="datetime-local"], .vui-item input[type="time"], .vui-item input[type="number"], .vui-item select {
+	height: map-get($item, min-height) - .75rem * $rem-ratio;
+}
+
+.vui-item {
+	textarea {
+		height: 5rem * $rem-ratio;
+		line-height: 1.4;
+		resize: none;
+	}
+	.vui-input-counter {
+		text-align: right;
+		color: #b2b2b2;
+	}
+}

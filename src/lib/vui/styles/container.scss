@@ -1,0 +1,43 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+.vui-view {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: map-get($base, background-color);
+  overflow: hidden;
+}
+
+.vui-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.vui-content.vui-has-header {
+  top: map-get($bar, height);
+}
+
+.vui-content.vui-has-subheader {
+  top: map-get($bar, height) + map-get($bar, subheader-height);
+}
+
+.vui-content.vui-has-footer {
+  bottom: map-get($bar, height);
+}
+
+.vui-content.vui-has-tab {
+  bottom: map-get($tab, height);
+}

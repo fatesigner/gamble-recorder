@@ -1,0 +1,38 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+.vui-loading {
+  display: inline-block;
+  width: map-get($loading, width);
+  height: map-get($loading, height);
+  vertical-align: middle;
+  &.vui-rotate-plane{
+    background-color: map-get($colors, primary);
+    @include animation(rotate-plane 1.2s infinite ease-in-out);
+  }
+}
+
+@-webkit-keyframes rotate-plane {
+  0% {
+    @include transform(perspective(120px));
+  }
+  50% {
+    @include transform(perspective(120px) rotateY(180deg));
+  }
+  100% {
+    @include transform(perspective(120px) rotateY(180deg) rotateX(180deg));
+  }
+}
+
+@keyframes rotate-plane {
+  0% {
+    @include transform(perspective(120px) rotateX(0deg) rotateY(0deg));
+  }
+  50% {
+    @include transform(perspective(120px) rotateX(-180.1deg) rotateY(0deg));
+  }
+  100% {
+    @include transform(perspective(120px) rotateX(-180deg) rotateY(-179.9deg));
+  }
+}

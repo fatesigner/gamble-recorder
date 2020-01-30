@@ -1,0 +1,39 @@
+@import '../../theme/variables';
+
+.record-win {
+  p {
+    position: absolute;
+  }
+}
+
+.record-plus {
+  margin: 0;
+
+  dd {
+    margin: 0 0 0 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #60bd63;
+  }
+}
+
+.record-diff {
+  margin: 0;
+
+  dd {
+    margin: 0 0 0 5px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #e2523b;
+  }
+}
+
+.records-list {
+  ion-badge {
+    padding: 2px;
+  }
+}
+
+.record-item {
+  position: relative;
+}

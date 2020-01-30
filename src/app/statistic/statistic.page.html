@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{party.value?.title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="party.done && party.value && party.value.records.length">
+    <div class="total" padding>
+      <div class="title">对局数</div>
+      <div class="desc">
+        这次总共玩了<span class="num">{{party.value.records.length}}</span>局
+      </div>
+      <div class="title">时间</div>
+      <div class="desc">
+        起始时间：{{party.value.records[party.value.records.length - 1].datetime | date:'yyyy-MM-dd HH:mm:ss'}}
+      </div>
+      <div class="desc">
+        结束时间：{{party.value.records[0].datetime | date:'yyyy-MM-dd HH:mm:ss'}}
+      </div>
+      <div class="desc">
+        持续时长：{{ data.latestime || '无'}}
+      </div>
+      <div class="title">输赢情况</div>
+      <div class="desc" *ngFor="let item of data.count">
+        <span class="vui-g0 vui-f14">{{item.partner.name}}：</span>赢<span class="num">{{item.winNum}}</span>局，
+        <span class="num" [ngClass]="{ diff: item.diff < 0, plus: item.diff > 0 }">{{item.diff>0?'+':'-'}}{{Math.abs(item.diff)}}</span>元
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="party.done && !party.value.records.length">
+    <div class="vui-tc" padding>
+      暂无记录
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!party.done">
+    <div class="vui-tc" padding>
+      <ion-spinner></ion-spinner>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="party.failed">
+    <div class="vui-mt20 vui-tc">
+      <p>{{party.err}}</p>
+      <ion-button color="secondary" (click)="party.reload()">
+        <ion-icon name="refresh"></ion-icon>&nbsp;重新加载
+      </ion-button>
+    </div>
+  </ng-container>
+</ion-content>

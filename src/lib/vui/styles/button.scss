@@ -1,0 +1,269 @@
+@charset "UTF-8";
+@import "../theme/variables";
+@import "../../sass-helpers/mixins";
+
+.vui-button {
+  position: relative;
+  display: inline-block;
+  border-width: 1px;
+  border-style: solid;
+  @include border-radius(.2rem * $rem-ratio);
+  white-space: nowrap;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.vui-button.vui-button-block {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
+// button size
+// original、mini、small、normal、large
+// ---------------------------------------
+.vui-button.vui-button-original {
+  padding: 0 .1rem * $rem-ratio;
+  height: auto;
+  line-height: inherit;
+  font-size: inherit;
+}
+
+.vui-button.vui-button-mini {
+  padding: 0 .3rem * $rem-ratio;
+  height: 1.3rem * $rem-ratio;
+  line-height: 1.2rem * $rem-ratio * $line-height-ratio;
+  font-size: .6rem * $rem-ratio;
+}
+
+.vui-button.vui-button-small {
+  padding: 0 .5rem * $rem-ratio;
+  height: 1.6rem * $rem-ratio;
+  line-height: 1.5rem * $rem-ratio * $line-height-ratio;
+  font-size: .7rem * $rem-ratio;
+}
+
+.vui-button {
+  padding: 0 .8rem * $rem-ratio;
+  height: 2rem * $rem-ratio;
+  line-height: 1.9rem * $rem-ratio * $line-height-ratio;
+  font-size: .8rem * $rem-ratio;
+}
+
+.vui-button.vui-button-large {
+  padding: 0 1.2rem * $rem-ratio;
+  height: 2.8rem * $rem-ratio;
+  line-height: 2.8rem * $rem-ratio * $line-height-ratio;
+  font-size: 1rem * $rem-ratio;
+}
+
+// button-round
+// ---------------------------------------
+.button-round {
+  border-radius: 1.25rem * $rem-ratio;
+}
+
+// button icon
+// ---------------------------------------
+.vui-button .fa {
+  color: inherit;
+}
+
+.vui-button.vui-button-icon-left .vui-icon {
+  margin-right: 2px;
+}
+
+.vui-button.vui-button-icon-left .fa {
+  padding-right: 4px;
+  padding-left: 0;
+}
+
+.vui-button.vui-button-icon-right .vui-icon {
+  margin-left: 2px;
+}
+
+.vui-button.vui-button-icon-right .fa {
+  padding-right: 0;
+  padding-left: 3px;
+}
+
+// button outline
+// ---------------------------------------
+.vui-button-outline {
+  @include box-shadow(none);
+  @include transition(opacity .1s);
+  background: 0 0;
+}
+
+// button color normal
+// ----------------------------------------
+.vui-button {
+  border-color: #b2b2b2;
+  background-color: #f8f8f8;
+  color: #444;
+}
+
+.vui-button:active {
+  background-color: #e5e5e5;
+  @include box-shadow(inset 0 1px 4px rgba(0, 0, 0, 0.1));
+}
+
+.vui-button.vui-button-outline {
+  border-color: #b2b2b2;
+  background: 0 0;
+}
+
+.vui-button.vui-button-outline:active {
+  background-color: #e5e5e5;
+}
+
+.vui-button.vui-button-clear {
+  color: #444;
+}
+
+.vui-button.vui-button-clear:active {
+  background-color: transparent;
+}
+
+// button color primary
+// -----------------------------
+.vui-button.vui-button-primary {
+  border-color: map-get($colors, primary);
+  background-color: map-get($colors, primary);
+  color: #fff;
+}
+
+.vui-button.vui-button-primary:active {
+  border-color: map-get($colors, primary);
+  background-color: map-get($colors, primary);
+}
+
+.vui-button.vui-button-primary.vui-button-outline {
+  border-color: map-get($colors, primary);
+  background: 0 0;
+  color: map-get($colors, primary);
+}
+
+.vui-button.vui-button-primary.vui-button-outline:active {
+  background: #ccdef3;
+}
+
+.vui-button.vui-button-primary.vui-button-clear {
+  color: map-get($colors, primary);
+}
+
+.vui-button.vui-button-primary.vui-button-clear:active {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+// button color success
+// ----------------------------------
+.vui-button.vui-button-success {
+  border-color: #4cae4c;
+  background-color: #5cb85c;
+  color: #fff;
+}
+
+.vui-button.vui-button-success:active {
+  border-color: #398439;
+  background-color: #449d44;
+}
+
+.vui-button.vui-button-success.vui-button-outline {
+  border-color: #33cd5f;
+  background: 0 0;
+  color: #4cd964;
+}
+
+.vui-button.vui-button-success.vui-button-outline:active {
+  background-color: #c5f5c3;
+}
+
+.vui-button.vui-button-success.vui-button-clear {
+  color: #04be02;
+}
+
+.vui-button.vui-button-success.vui-button-clear:active {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+// button color warning
+// ----------------------------------
+.vui-button.vui-button-warning {
+  border-color: #eea236;
+  background-color: #f0ad4e;
+  color: #fff;
+}
+
+.vui-button.vui-button-warning:active {
+  border-color: #d58512;
+  background-color: #ec971f;
+}
+
+.vui-button.vui-button-warning.vui-button-outline {
+  border-color: #ec971f;
+  background: 0 0;
+  color: #f0ad4e;
+}
+
+.vui-button.vui-button-warning.vui-button-outline:active {
+  background-color: #ffeee2;
+}
+
+.vui-button.vui-button-warning.vui-button-clear {
+  color: #ff6600;
+}
+
+.vui-button.vui-button-warning.vui-button-clear:active {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+// button color danger
+// --------------------------------
+.vui-button.vui-button-danger {
+  border-color: #d43f3a;
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.vui-button.vui-button-danger:active {
+  border-color: #ac2925;
+  background-color: #c9302c;
+}
+
+.vui-button.vui-button-danger.vui-button-outline {
+  border-color: #ef473a;
+  background: 0 0;
+  color: #ef473a;
+}
+
+.vui-button.vui-button-danger.vui-button-outline:active {
+  background: rgba(255, 115, 115, 0.15);
+}
+
+.vui-button.vui-button-danger.vui-button-clear {
+  color: #ef473a;
+}
+
+.vui-button.vui-button-danger.vui-button-clear:active {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+// button-clear
+// ----------------------------------
+.vui-button.vui-button-clear {
+  border-color: transparent;
+  background: 0 0;
+  @include box-shadow(none);
+}
+
+.vui-button.vui-button-clear:active {
+  opacity: .3;
+}

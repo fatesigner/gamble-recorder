@@ -1,0 +1,133 @@
+{
+  "name": "gamble-recorder",
+  "version": "1.0.0",
+  "description": "A recorder of the outcome of a game.",
+  "license": "MIT",
+  "keywords": [
+    "app",
+    "gamble",
+    "records",
+    "ionic"
+  ],
+  "author": {
+    "name": "Jeremy Tang",
+    "email": "fatesigner@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fatesigner/gamble-recorder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fatesigner/gamble-recorder/issues"
+  },
+  "homepage": "https://github.com/fatesigner/gamble-recorder#readme",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "e2e": "ng e2e",
+    "commit": "npx git cz",
+    "lint": "lint-staged"
+  },
+  "dependencies": {
+    "@angular/common": "8.1.2",
+    "@angular/core": "8.1.2",
+    "@angular/forms": "8.1.2",
+    "@angular/platform-browser": "8.1.2",
+    "@angular/platform-browser-dynamic": "8.1.2",
+    "@angular/router": "8.1.2",
+    "@capacitor/core": "1.4.0",
+    "@ionic-native/core": "5.0.0",
+    "@ionic-native/splash-screen": "5.0.0",
+    "@ionic-native/status-bar": "5.0.0",
+    "@ionic/angular": "4.7.1",
+    "@ionic/storage": "2.2.0",
+    "@ngrx/effects": "8.6.0",
+    "@ngrx/store": "8.6.0",
+    "cordova-android": "8.1.0",
+    "core-js": "2.5.4",
+    "rxjs": "6.5.1",
+    "tslib": "1.9.0",
+    "zone.js": "0.9.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "0.801.2",
+    "@angular-devkit/build-angular": "0.801.2",
+    "@angular-devkit/core": "8.1.2",
+    "@angular-devkit/schematics": "8.1.2",
+    "@angular/cli": "8.1.2",
+    "@angular/compiler": "8.1.2",
+    "@angular/compiler-cli": "8.1.2",
+    "@angular/language-service": "8.1.2",
+    "@capacitor/cli": "1.4.0",
+    "@commitlint/cli": "8.3.5",
+    "@commitlint/config-conventional": "8.3.4",
+    "@fatesigner/cz-customizable": "6.3.0",
+    "@fatesigner/stylelint-config": "1.0.0",
+    "@ionic/angular-toolkit": "2.1.1",
+    "@semantic-release/changelog": "5.0.0",
+    "@semantic-release/git": "9.0.0",
+    "@types/jasmine": "3.3.8",
+    "@types/jasminewd2": "2.0.3",
+    "@types/node": "8.9.4",
+    "@typescript-eslint/eslint-plugin": "2.18.0",
+    "@typescript-eslint/parser": "2.17.0",
+    "@vue/eslint-config-prettier": "6.0.0",
+    "@vue/eslint-config-standard": "5.1.0",
+    "@vue/eslint-config-typescript": "5.0.1",
+    "babel-eslint": "10.0.3",
+    "codelyzer": "5.0.0",
+    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-ionic-keyboard": "2.0.5",
+    "cordova-plugin-ionic-webview": "4.0.0",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cz-customizable": "6.2.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-config-standard": "14.1.0",
+    "eslint-plugin-html": "6.0.0",
+    "eslint-plugin-import": "2.20.0",
+    "eslint-plugin-node": "11.0.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "husky": "4.2.1",
+    "jasmine-core": "3.4.0",
+    "jasmine-spec-reporter": "4.2.1",
+    "karma": "4.1.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-coverage-istanbul-reporter": "2.0.1",
+    "karma-jasmine": "2.0.1",
+    "karma-jasmine-html-reporter": "1.4.0",
+    "lint-staged": "10.0.3",
+    "prettier": "1.19.1",
+    "protractor": "5.4.0",
+    "semantic-release": "17.0.0",
+    "travis": "0.1.1",
+    "ts-node": "7.0.0",
+    "typescript": "3.4.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/@fatesigner/cz-customizable"
+    }
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
+      "cordova-plugin-ionic-keyboard": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  }
+}

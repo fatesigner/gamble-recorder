@@ -1,0 +1,158 @@
+// Colors
+// -------------------------------
+$colors: (
+  primary: #327eff,
+  secondary: #32db64,
+  danger: #f53d3d,
+  light: #f4f4f4,
+  dark: #222
+) !default;
+
+// Font family
+// -------------------------------
+$font-family: (
+  yahei: ('Microsoft YaHei', 微软雅黑, MicrosoftJhengHei, 华文细黑, STHeiti, MingLiu),
+  sans-serif: ('-apple-system', 'Helvetica Neue', 'Roboto', 'Segoe UI', sans-serif),
+  light-sans-serif: ('-apple-system', 'HelveticaNeue-Light', 'Roboto-Light', 'Segoe UI-Light', sans-serif-light)
+) !default;
+
+// Html
+// -------------------------------
+$html: (
+  font-size: 20px
+);
+
+// rem比例 默认以20px为基准
+// -------------------------------
+$rem-ratio: 1 !default;
+
+// line-height与height、font-size的比例 当字体改变时候 该值需要调整
+// -------------------------------
+$line-height-ratio: 1;
+
+// Base
+// -------------------------------
+$base: (
+  font-family: map-get($font-family, yahei),
+  line-height: 1.5,
+  color: #387ef5,
+  border-color: #e7e7e7,
+  background-color: #efeff4,
+  placeholder-color: #ccc
+) !default;
+
+// Alert
+// -------------------------------
+$alert: (
+  z-index: 10004
+);
+
+// Bar
+// -------------------------------
+$bar: (
+  height: 2.2rem,
+  inner-height: 1.7rem,
+  subheader-height: 2.2rem,
+  subheader-innerHeight: 1.7rem
+);
+
+// Item
+// --------------------------------
+$item: (
+  min-height: 2.2rem,
+  padding-left: .75rem,
+  padding-right: .75rem,
+  arrow-color: #d9d9d9
+);
+
+// List
+// -------------------------------
+$list: (
+  border-color: #d9d9d9
+);
+
+// Loading
+// -------------------------------
+$loading: (
+  z-index: 10004
+);
+
+// Modal
+// -------------------------------
+$modal: (
+  z-index: 10003
+);
+
+// Notification
+// -------------------------------
+$notification: (
+  z-index: 10005
+);
+
+// Popover
+// -------------------------------
+$popover: (
+  z-index: 10006
+);
+
+// Pagination
+// -------------------------------
+$pagination: (
+  color: map-get($colors, primary)
+);
+
+// Popup
+// -------------------------------
+$popup: (
+  z-index: 10002
+);
+
+// Toast
+// -------------------------------
+$toast: (
+  z-index: 10005
+);
+
+// Tab
+// -------------------------------
+$tab: (
+  height: 2.5rem,
+  activated-color: map-get($colors, primary),
+);
+
+// Icon
+// -------------------------------
+$icon: (
+  color: #666
+);
+
+// Row
+// -------------------------------
+$row: (
+  padding-width: 10px
+);
+
+// Grid
+// -------------------------------
+$grid: (
+  border-color: #d9d9d9
+);
+
+// Spinner
+// -------------------------------
+$spinner: (
+  width: 28px,
+  height: 28px,
+  stroke: map-get($colors, primary),
+  fill: map-get($colors, primary),
+  primary-stroke: map-get($colors, primary),
+  primary-fill: map-get($colors, primary),
+  secondary-stroke: map-get($colors, secondary),
+  secondary-fill: map-get($colors, secondary),
+  danger-stroke: map-get($colors, danger),
+  danger-fill: map-get($colors, danger),
+  light-stroke: map-get($colors, light),
+  light-fill: map-get($colors, light),
+  dark-stroke: map-get($colors, dark),
+  dark-fill: map-get($colors, dark)
+);

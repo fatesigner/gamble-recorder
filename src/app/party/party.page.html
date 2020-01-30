@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{party.value?.title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="party.done && party.value">
+    <div class="vui-f13 vui-g9 vui-pl20 vui-pt10" *ngIf="party.value.id">
+      创建时间：{{party.value.datetime | date:'yyyy-MM-dd HH:mm:ss'}}
+    </div>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">标题</ion-label>
+        <ion-input [(ngModel)]="party.value.title"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list-header>牌友 <ion-button class="vui-mr20" size="small" (click)="postPartner()">添加</ion-button></ion-list-header>
+    <ion-chip class="ion-margin-start"
+              *ngFor="let item of party.value.partners"
+              (click)="removeParter(item)">
+      <ion-avatar>
+        <img src="../../assets/img/avatar.svg" alt="" title=""/>
+      </ion-avatar>
+      <ion-label>{{item.name}}</ion-label>
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-chip>
+    <div padding class="vui-g9 vui-f12" *ngIf="party.value.partners.length < 2">请先至少添加两个牌友</div>
+    <div padding>
+      <ion-button color="primary" expand="block" size="large" (click)="update()">
+        {{party.value.id ? '更新' : '提交'}}
+      </ion-button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!party.done">
+    <div class="vui-tc" padding>
+      <ion-spinner></ion-spinner>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="party.failed">
+    <div class="vui-mt20 vui-tc">
+      <p>{{party.err}}</p>
+      <ion-button color="secondary" (click)="party.reload()">
+        <ion-icon name="refresh"></ion-icon>&nbsp;重新加载
+      </ion-button>
+    </div>
+  </ng-container>
+</ion-content>
