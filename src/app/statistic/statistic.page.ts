@@ -3,7 +3,7 @@ import { CreateBehaviorObservableData } from '../public/rxjs-utils';
 import { concatMap, map } from 'rxjs/operators';
 import { IPartner, IParty } from '../store/models';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 import * as AppStore from '../store';
@@ -37,6 +37,7 @@ export class StatisticPage implements OnInit {
   data: {
     count: {
       partner: IPartner;
+      bankerNum: number;
       winNum: number;
       diff: number;
     }[];
@@ -80,6 +81,18 @@ export class StatisticPage implements OnInit {
         // 获取输赢次数
         const res: any = party.records.reduce(
           (tmp, cur) => {
+            if (cur.banker) {
+              if (tmp.sums[cur.banker.name]) {
+                tmp.sums[cur.banker.name].bankerNum += 1;
+              } else {
+                tmp.sums[cur.banker.name] = {
+                  partner: cur.banker,
+                  bankerNum: 1,
+                  winNum: 0,
+                  diff: 0
+                };
+              }
+            }
             tmp = cur.sums.reduce((tmp2, cur2) => {
               if (tmp2.sums[cur2.partner.name]) {
                 tmp2.sums[cur2.partner.name].diff += cur2.diff;
@@ -87,6 +100,7 @@ export class StatisticPage implements OnInit {
               } else {
                 tmp2.sums[cur2.partner.name] = {
                   partner: cur2.partner,
+                  bankerNum: 0,
                   winNum: cur2.diff >= 0 ? 1 : 0,
                   diff: cur2.diff
                 };

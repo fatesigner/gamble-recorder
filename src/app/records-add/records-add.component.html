@@ -10,6 +10,15 @@
 </ion-header>
 <ion-content padding>
   <ion-item>
+    <ion-label>庄家</ion-label>
+    <ion-select interface="popover" placeholder="选择一位牌友" ok-text="确定" cancel-text="取消"
+                [(ngModel)]="selectedZman">
+      <ion-select-option *ngFor="let partner of party.partners" [value]="partner">
+        {{partner.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
     <ion-label>赢家</ion-label>
     <ion-select interface="popover" placeholder="选择一位牌友" ok-text="确定" cancel-text="取消"
                 [(ngModel)]="selectedWinman" multiple>

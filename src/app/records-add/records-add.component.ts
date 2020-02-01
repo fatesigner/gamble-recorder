@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import _ from 'lodash';
 
-import { IParty, IRecord } from '../store/models';
+import { IPartner, IParty, IRecord } from '../store/models';
 import * as AppStore from '../store';
 import { GetGUID } from '../public/utils';
 
@@ -15,6 +15,8 @@ import { GetGUID } from '../public/utils';
 })
 export class RecordsAddComponent implements OnInit {
   @Input() public party: IParty;
+
+  selectedZman: IPartner = null;
 
   selectedWinman: string[] = [];
 
@@ -40,6 +42,7 @@ export class RecordsAddComponent implements OnInit {
   record: IRecord = {
     id: '',
     datetime: null,
+    banker: null,
     sums: []
   };
 
@@ -92,7 +95,8 @@ export class RecordsAddComponent implements OnInit {
     }
     const record: IRecord = _.merge({}, _.cloneDeep(this.record), {
       id: GetGUID(10),
-      datetime: new Date()
+      datetime: new Date(),
+      banker: this.selectedZman
     });
     record.sums.forEach(cur => {
       if (this.selectedWinman.indexOf(cur.partner.id) < 0) {

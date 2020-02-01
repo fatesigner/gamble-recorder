@@ -18,30 +18,31 @@
   <ng-container *ngIf="party.done && party.value">
     <ion-list class="records-list">
       <ion-item-sliding *ngFor="let record of party.value.records; let i = index;">
-        <ion-item>
-          <div class="vui-col vui-padding-top vui-padding-bottom">
-            <div class="vui-row vui-no-padding">
-              <div class="vui-col vui-col-fluid vui-mt10 vui-ml5">
-                <ng-container *ngFor="let item of record.sums">
-                  <ion-badge class="vui-mr5" color="light">
-                    <dl class="vui-row vui-align-items-center record-plus" *ngIf="item.diff>0">
-                      <dt>{{item.partner.name}}&nbsp;</dt><dd>+{{item.diff}}</dd>
-                    </dl>
-                    <dl class="vui-row vui-align-items-center record-diff" *ngIf="item.diff===0">
-                      <dt>{{item.partner.name}}&nbsp;</dt><dd>{{item.diff}}</dd>
-                    </dl>
-                    <dl class="vui-row vui-align-items-center record-diff" *ngIf="item.diff<0">
-                      <dt>{{item.partner.name}}&nbsp;</dt><dd>{{item.diff}}</dd>
-                    </dl>
-                  </ion-badge>
-                </ng-container>
+        <ion-item class="record-item" lines="none" no-padding>
+          <div class="vui-col vui-no-padding">
+            <div class="record-sum-wrap">
+              <div class="record-sum-item"
+                   *ngFor="let item of record.sums"
+                   [ngClass]="{ 'record-zz': record.banker && record.banker.id === item.partner.id }">
+                <dl class="vui-row vui-align-items-center record-plus" *ngIf="item.diff>0">
+                  <dt>{{item.partner.name}}</dt><dd>+{{item.diff}}</dd>
+                </dl>
+                <dl class="vui-row vui-align-items-center record-diff" *ngIf="item.diff===0">
+                  <dt>{{item.partner.name}}</dt><dd>{{item.diff}}</dd>
+                </dl>
+                <dl class="vui-row vui-align-items-center record-diff" *ngIf="item.diff<0">
+                  <dt>{{item.partner.name}}</dt><dd>{{item.diff}}</dd>
+                </dl>
+                <div class="record-zzi" *ngIf="record.banker && record.banker.name === item.partner.name">
+                  <span>庄</span>
+                </div>
               </div>
+            </div>
+            <div class="vui-row vui-justify-content-end">
               <!--<div class="record-win">
                 <ion-badge color="primary">{{record.win.name}}</ion-badge>
               </div>-->
-              <div class="vui-col-static vui-f12 vui-g9 vui-align-self-bottom">
-                <span class="record-datetime">{{record.datetime | date:'HH:mm:ss'}}</span>
-              </div>
+              <div class="record-datetime">{{record.datetime | date:'HH:mm:ss'}}</div>
             </div>
           </div>
         </ion-item>

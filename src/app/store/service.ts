@@ -72,15 +72,34 @@ export class Service {
 
       const records = [];
 
-      const date = new Date('2020-01-25 13:52:00');
+      let date = new Date('2020-01-25 13:52:00');
       for (let i = 0; i < total; i++) {
         const sums = [];
         let _wins = 0;
         let _winarr = [];
         let _losearr = [];
-        _wins = getRad(1, party.partners.length - 1);
-        _losearr = Array.from(Array(party.partners.length).keys());
-        _winarr = getRadArr(_losearr, _wins);
+        let _zz = -1;
+        if (getRad(0, 3) > 0) {
+          _zz = getRad(0, party.partners.length - 1);
+          console.log(i + ' 谁做庄 ' + _zz);
+          _wins = 1;
+          if (getRad(0, 5) > 2) {
+            console.log('  庄赢 ' + _zz);
+            _winarr = [_zz];
+            _losearr = Array.from(Array(party.partners.length).keys());
+            _losearr.splice(_zz, 1);
+          } else {
+            console.log('  庄输 ' + _zz);
+            _losearr = [_zz];
+            _winarr = Array.from(Array(party.partners.length).keys());
+            _winarr.splice(_zz, 1);
+          }
+        } else {
+          console.log(i + ' 无人坐庄');
+          _wins = getRad(1, party.partners.length - 1);
+          _losearr = Array.from(Array(party.partners.length).keys());
+          _winarr = getRadArr(_losearr, _wins);
+        }
         console.log('  多少人赢 ' + _wins);
         console.log('  哪些人赢 ' + JSON.stringify(_winarr));
         console.log('  哪些人输 ' + JSON.stringify(_losearr));
@@ -109,9 +128,12 @@ export class Service {
           }
         });
 
+        const _date = new Date(date.getTime() + getRad(5, 25) * 60000);
+        date = _date;
         const record: IRecord = {
           id: GetGUID(10),
-          datetime: new Date(date.getTime() + getRad(5, 25) * 60000),
+          datetime: _date,
+          banker: party.partners[_zz],
           sums: sums
         };
         records.unshift(record);

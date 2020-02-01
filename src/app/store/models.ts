@@ -30,6 +30,8 @@ export interface IPartner {
 export interface IRecord {
   id: string;
   datetime: Date;
+  // 庄家
+  banker?: IPartner;
   sums: {
     partner: IPartner;
     diff: number;

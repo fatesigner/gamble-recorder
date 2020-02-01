@@ -1,5 +1,13 @@
 @import '../../theme/variables';
 
+ion-content {
+  --ion-background-color: #eee;
+}
+
+ion-item {
+  --ion-background-color: #fff;
+}
+
 .record-win {
   p {
     position: absolute;
@@ -11,7 +19,7 @@
 
   dd {
     margin: 0 0 0 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: #60bd63;
   }
@@ -29,11 +37,61 @@
 }
 
 .records-list {
+  padding-bottom: 70px;
+
   ion-badge {
     padding: 2px;
   }
 }
 
 .record-item {
+  margin: 0 10px 10px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px 0 rgba(50, 50, 50, 0.5);
+}
+
+.record-sum-wrap {
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.record-sum-item {
   position: relative;
+  display: inline-block;
+  float: left;
+  height: 30px;
+  margin: 10px 0 0 20px;
+  font-size: 12px;
+  background-color: #eee;
+  border-radius: 3px;
+}
+
+.record-zz {
+  border: 2px solid orange;
+}
+
+.record-zzi {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  z-index: 2;
+  display: -webkit-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  background-color: orange;
+  border-radius: 50%;
+}
+
+.record-datetime {
+  float: right;
+  font-size: 10px;
+  color: #999;
 }

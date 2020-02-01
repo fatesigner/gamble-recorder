@@ -28,8 +28,8 @@
       </div>
       <div class="title">输赢情况</div>
       <div class="desc" *ngFor="let item of data.count">
-        <span class="vui-g0 vui-f14">{{item.partner.name}}：</span>赢<span class="num">{{item.winNum}}</span>局，
-        <span class="num" [ngClass]="{ diff: item.diff < 0, plus: item.diff > 0 }">{{item.diff>0?'+':'-'}}{{Math.abs(item.diff)}}</span>元
+        <span class="vui-g0 vui-f14">{{item.partner.name}}：</span>坐庄<span class="num">{{item.bankerNum}}</span>局，赢<span class="num">{{item.winNum}}</span>局，
+        <span class="num" [ngClass]="{ diff: item.diff < 0, plus: item.diff >= 0 }">{{item.diff>=0?'+':'-'}}{{Math.abs(item.diff)}}</span>元
       </div>
     </div>
   </ng-container>
