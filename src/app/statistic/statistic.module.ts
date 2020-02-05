@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { StatisticPageRoutingModule } from './statistic-routing.module';
 
 import { StatisticPage } from './statistic.page';
+import { RecordComponent } from '../record/record.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, StatisticPageRoutingModule],
-  declarations: [StatisticPage]
+  entryComponents: [RecordComponent],
+  declarations: [StatisticPage, RecordComponent]
 })
 export class StatisticPageModule {}

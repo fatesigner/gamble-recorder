@@ -13,6 +13,7 @@
     <ion-label>庄家</ion-label>
     <ion-select interface="popover" placeholder="选择一位牌友" ok-text="确定" cancel-text="取消"
                 [(ngModel)]="selectedZman">
+      <ion-select-option [value]="null"></ion-select-option>
       <ion-select-option *ngFor="let partner of party.partners" [value]="partner">
         {{partner.name}}
       </ion-select-option>
@@ -42,7 +43,7 @@
           <dd *ngIf="selectedWinman.indexOf(sum.partner.id) > -1; else afas">
             <div class="vui-row vui-no-padding vui-align-items-center"
             *ngIf="selectedWinman.length === 1; else dasf">
-              <ion-icon name="add" color="#999"></ion-icon><ion-input [value]="sum.diff" readonly></ion-input>
+              <ion-icon name="add" color="#999"></ion-icon><ion-input type="number" [value]="sum.diff" readonly></ion-input>
             </div>
           </dd>
           <ng-template #dasf>

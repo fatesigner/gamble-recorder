@@ -33,8 +33,8 @@ export class RecordsPage implements OnInit {
             return s;
           })
         )
-      )
-      // concatMap(parties => this.appStoreService.getTestRecords$(parties, 12))
+      ),
+      concatMap(parties => this.appStoreService.getTestRecords$(parties, 12))
     )
   );
 
@@ -60,6 +60,13 @@ export class RecordsPage implements OnInit {
       header: '设置',
       buttons: [
         {
+          text: '添加',
+          icon: 'add',
+          handler: () => {
+            this.presentAddModal();
+          }
+        },
+        {
           text: '更新',
           icon: 'create',
           handler: () => {
@@ -68,7 +75,7 @@ export class RecordsPage implements OnInit {
         },
         {
           text: '统计',
-          icon: 'paper-plane',
+          icon: 'clipboard',
           handler: () => {
             this.router.navigate(['/statistic/' + this.party.value.id]);
           }
@@ -84,7 +91,7 @@ export class RecordsPage implements OnInit {
     await actionSheet.present();
   }
 
-  async presentModal() {
+  async presentAddModal() {
     const modal = await this.modalController.create({
       component: RecordsAddComponent,
       componentProps: {

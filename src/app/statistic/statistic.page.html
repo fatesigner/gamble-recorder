@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      {{party.value?.title}}
+    <ion-title *ngIf="party.value">
+      统计（ {{party.value?.title}}）
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -28,8 +28,33 @@
       </div>
       <div class="title">输赢情况</div>
       <div class="desc" *ngFor="let item of data.count">
-        <span class="vui-g0 vui-f14">{{item.partner.name}}：</span>坐庄<span class="num">{{item.bankerNum}}</span>局，赢<span class="num">{{item.winNum}}</span>局，
-        <span class="num" [ngClass]="{ diff: item.diff < 0, plus: item.diff >= 0 }">{{item.diff>=0?'+':'-'}}{{Math.abs(item.diff)}}</span>元
+        <span class="vui-g0 vui-f14">{{item.partner.name}}
+          ：</span>坐庄<span class="num">{{item.bankerNum}}</span>局，赢<span class="num">{{item.winNum}}</span>局，
+        <span class="num" [ngClass]="{ diff: item.diff < 0, plus: item.diff > 0 }">{{item.diff > 0 ? '+' : '-'}}{{Math.abs(item.diff)}}</span>元
+      </div>
+      <div class="title">单局记录</div>
+      <div class="desc vui-row vui-no-padding vui-align-items-center" *ngIf="data.maxDiff">
+        <span class="vui-g9 vui-f12">赢的最多（{{data.maxDiff.partner.name}}
+          ：<span class="num" [ngClass]="{ diff: data.maxDiff.diff < 0, plus: data.maxDiff.diff > 0 }">{{data.maxDiff.diff > 0 ? '+' : '-'}}{{Math.abs(data.maxDiff.diff)}}</span>元）</span>
+        <ion-button class="icon-button" size="small" color="light" (click)="showRecordModal(data.maxDiff.record)">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-button>
+      </div>
+      <div class="desc" *ngIf="data.minDiff">
+        <span class="vui-g9 vui-f12">输的最多（{{data.minDiff.partner.name}}
+          ：<span class="num" [ngClass]="{ diff: data.minDiff.diff < 0, plus: data.minDiff.diff > 0 }">{{data.minDiff.diff > 0 ? '+' : '-'}}{{Math.abs(data.minDiff.diff)}}</span>元）</span>
+        <ion-button class="icon-button" size="small" color="light" (click)="showRecordModal(data.minDiff.record)">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-button>
+      </div>
+      <div class="title">连续记录</div>
+      <div class="desc" *ngIf="data.series.win.partner">
+        <span class="vui-g9 vui-f12">连赢最多（{{data.series.win.partner.name}}
+          ：<span class="num plus">{{data.series.win.num}}</span>局）</span>
+      </div>
+      <div class="desc" *ngIf="data.series.lose.partner">
+        <span class="vui-g9 vui-f12">连输最多（{{data.series.lose.partner.name}}
+          ：<span class="num diff">{{data.series.lose.num}}</span>局）</span>
       </div>
     </div>
   </ng-container>

@@ -7,7 +7,7 @@
       {{party.value?.title}}
     </ion-title>
     <ion-buttons slot="end" *ngIf="party.done && party.value">
-      <ion-button (click)="presentModal()"><ion-icon name="add"></ion-icon></ion-button>
+      <ion-button (click)="presentAddModal()"><ion-icon name="add"></ion-icon></ion-button>
       <ion-button [routerLink]="['/statistic/' + party.value.id]"><ion-icon name="clipboard"></ion-icon></ion-button>
       <ion-button (click)="presentActionSheet()"><ion-icon name="menu"></ion-icon></ion-button>
     </ion-buttons>
@@ -16,7 +16,7 @@
 
 <ion-content>
   <ng-container *ngIf="party.done && party.value">
-    <ion-list class="records-list">
+    <ion-list class="records-list" *ngIf="party.value.records.length">
       <ion-item-sliding *ngFor="let record of party.value.records; let i = index;">
         <ion-item class="record-item" lines="none" no-padding>
           <div class="vui-col vui-no-padding">
@@ -52,7 +52,7 @@
       </ion-item-sliding>
     </ion-list>
     <div class="vui-tc vui-mt20" *ngIf="party.value.records.length == 0; else fab" padding>
-      <ion-button color="secondary" size="large" (click)="presentModal()">添加记录</ion-button>
+      <ion-button color="secondary" size="large" (click)="presentAddModal()">添加记录</ion-button>
     </div>
   </ng-container>
   <ng-container *ngIf="!party.done">
@@ -70,7 +70,7 @@
   </ng-container>
   <ng-template #fab>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="presentModal()" color="secondary">
+      <ion-fab-button (click)="presentAddModal()" color="secondary">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>

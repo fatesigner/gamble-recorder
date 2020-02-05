@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateBehaviorObservableData } from '../public/rxjs-utils';
 import { concatMap, map } from 'rxjs/operators';
-import { IPartner, IParty } from '../store/models';
+import { IPartner, IParty, IRecord } from '../store/models';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, MenuController, NavController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  NavController
+} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 import * as AppStore from '../store';
 import { Observable } from 'rxjs';
+import { RecordComponent } from '../record/record.component';
 
 @Component({
   selector: 'app-statistic',
@@ -45,12 +50,24 @@ export class StatisticPage implements OnInit {
     dateEnd: Date;
     latestime: string;
     maxDiff: {
+      record: IRecord;
       partner: IPartner;
       diff: number;
     };
     minDiff: {
+      record: IRecord;
       partner: IPartner;
       diff: number;
+    };
+    series: {
+      win: {
+        partner: IPartner;
+        num: number;
+      };
+      lose: {
+        partner: IPartner;
+        num: number;
+      };
     };
   } = {
     count: [],
@@ -58,11 +75,16 @@ export class StatisticPage implements OnInit {
     dateEnd: null,
     latestime: '',
     maxDiff: null,
-    minDiff: null
+    minDiff: null,
+    series: {
+      win: null,
+      lose: null
+    }
   };
 
   constructor(
     private router: Router,
+    private modalController: ModalController,
     private alertController: AlertController,
     private navCtrl: NavController,
     private route: ActivatedRoute,
@@ -78,9 +100,9 @@ export class StatisticPage implements OnInit {
   getTotal(party: IParty): Observable<IParty> {
     return new Observable(subscriber => {
       if (party.records.length) {
-        // 获取输赢次数
+        // 获取叫庄、输赢次数
         const res: any = party.records.reduce(
-          (tmp, cur) => {
+          (tmp, cur, index) => {
             if (cur.banker) {
               if (tmp.sums[cur.banker.name]) {
                 tmp.sums[cur.banker.name].bankerNum += 1;
@@ -89,7 +111,9 @@ export class StatisticPage implements OnInit {
                   partner: cur.banker,
                   bankerNum: 1,
                   winNum: 0,
-                  diff: 0
+                  diff: 0,
+                  swinNum: 0,
+                  sloseNum: 0
                 };
               }
             }
@@ -97,19 +121,68 @@ export class StatisticPage implements OnInit {
               if (tmp2.sums[cur2.partner.name]) {
                 tmp2.sums[cur2.partner.name].diff += cur2.diff;
                 tmp2.sums[cur2.partner.name].winNum += cur2.diff >= 0 ? 1 : 0;
+                if (cur2.diff > 0) {
+                  tmp2.sums[cur2.partner.name].swinNum += 1;
+                  if (
+                    tmp2.sums[cur2.partner.name].sloseNum > tmp2.series.lose.num
+                  ) {
+                    tmp2.series.lose.num =
+                      tmp2.sums[cur2.partner.name].sloseNum;
+                    tmp2.series.lose.partner = cur2.partner;
+                  } else {
+                    tmp2.sums[cur2.partner.name].sloseNum = 0;
+                  }
+                  if (index === party.records.length - 1) {
+                    if (
+                      tmp2.sums[cur2.partner.name].swinNum > tmp2.series.win.num
+                    ) {
+                      tmp2.series.win.num =
+                        tmp2.sums[cur2.partner.name].swinNum;
+                      tmp2.series.win.partner = cur2.partner;
+                    } else {
+                      tmp2.sums[cur2.partner.name].swinNum = 0;
+                    }
+                  }
+                } else {
+                  tmp2.sums[cur2.partner.name].sloseNum += 1;
+                  if (
+                    tmp2.sums[cur2.partner.name].swinNum > tmp2.series.win.num
+                  ) {
+                    tmp2.series.win.num = tmp2.sums[cur2.partner.name].swinNum;
+                    tmp2.series.win.partner = cur2.partner;
+                  } else {
+                    tmp2.sums[cur2.partner.name].swinNum = 0;
+                  }
+                  if (index === party.records.length - 1) {
+                    if (
+                      tmp2.sums[cur2.partner.name].sloseNum >
+                      tmp2.series.lose.num
+                    ) {
+                      tmp2.series.lose.num =
+                        tmp2.sums[cur2.partner.name].sloseNum;
+                      tmp2.series.lose.partner = cur2.partner;
+                    } else {
+                      tmp2.sums[cur2.partner.name].sloseNum = 0;
+                    }
+                  }
+                }
               } else {
                 tmp2.sums[cur2.partner.name] = {
                   partner: cur2.partner,
                   bankerNum: 0,
-                  winNum: cur2.diff >= 0 ? 1 : 0,
-                  diff: cur2.diff
+                  winNum: cur2.diff > 0 ? 1 : 0,
+                  diff: cur2.diff,
+                  swinNum: cur2.diff > 0 ? 1 : 0,
+                  sloseNum: cur2.diff < 0 ? 1 : 0
                 };
               }
               if (!tmp.maxDiff || cur2.diff > tmp.maxDiff.diff) {
                 tmp.maxDiff = cur2;
+                tmp.maxDiff.record = cur;
               }
               if (!tmp.minDiff || cur2.diff < tmp.minDiff.diff) {
                 tmp.minDiff = cur2;
+                tmp.minDiff.record = cur;
               }
               return tmp2;
             }, tmp);
@@ -119,7 +192,17 @@ export class StatisticPage implements OnInit {
           {
             sums: {},
             maxDiff: null,
-            minDiff: null
+            minDiff: null,
+            series: {
+              win: {
+                partner: null,
+                num: 1
+              },
+              lose: {
+                partner: null,
+                num: 1
+              }
+            }
           }
         );
         const arr: any = Object.values(res.sums);
@@ -128,6 +211,7 @@ export class StatisticPage implements OnInit {
         );
         this.data.maxDiff = res.maxDiff;
         this.data.minDiff = res.minDiff;
+        this.data.series = res.series;
 
         // 持续时长
         const date1 = party.records[
@@ -152,9 +236,19 @@ export class StatisticPage implements OnInit {
           (hours ? `${hours}小时` : '') +
           (minutes ? `${minutes}分钟` : '') +
           (seconds ? `${seconds}秒` : '');
+        subscriber.next(party);
+        subscriber.complete();
       }
-      subscriber.next(party);
-      subscriber.complete();
     });
+  }
+
+  async showRecordModal(record) {
+    const modal = await this.modalController.create({
+      component: RecordComponent,
+      componentProps: {
+        record: record
+      }
+    });
+    await modal.present();
   }
 }
