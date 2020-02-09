@@ -33,8 +33,8 @@ export class RecordsPage implements OnInit {
             return s;
           })
         )
-      ),
-      concatMap(parties => this.appStoreService.getTestRecords$(parties, 12))
+      )
+      // concatMap(parties => this.appStoreService.getTestRecords$(parties, 12))
     )
   );
 
