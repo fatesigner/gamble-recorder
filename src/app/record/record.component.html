@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="tertiary">
-    <ion-title>牌局记录</ion-title>
+    <ion-title>输赢记录</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content padding>
   <div class="vui-f13 vui-g9 vui-pl20 vui-pt10" *ngIf="record">
-    创建时间：{{record.datetime | date:'yyyy-MM-dd HH:mm:ss'}}
+    开局时间：{{record.datetime | date:'yyyy-MM-dd HH:mm:ss'}}
   </div>
   <ion-item class="record-item" lines="none" no-padding *ngIf="record">
     <div class="vui-col vui-no-padding">

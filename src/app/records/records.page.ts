@@ -12,6 +12,8 @@ import { Storage } from '@ionic/storage';
 import * as AppStore from '../store';
 import { CreateBehaviorObservableData } from '../public/rxjs-utils';
 import { RecordsAddComponent } from '../records-add/records-add.component';
+import { IRecord } from '../store/models';
+import { GetGUID } from '../public/utils';
 
 @Component({
   selector: 'app-records',
@@ -34,7 +36,7 @@ export class RecordsPage implements OnInit {
           })
         )
       )
-      // concatMap(parties => this.appStoreService.getTestRecords$(parties, 12))
+      // concatMap(parties => this.appStoreService.getTestRecords$(parties, 123))
     )
   );
 
@@ -52,7 +54,11 @@ export class RecordsPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    this.party.reload().catch(x => {});
+    this.party.reload().catch(() => {});
+  }
+
+  trackBy(index, item) {
+    return item ? item.id : index;
   }
 
   async presentActionSheet() {
@@ -64,6 +70,53 @@ export class RecordsPage implements OnInit {
           icon: 'add',
           handler: () => {
             this.presentAddModal();
+          }
+        },
+        {
+          text: '合并',
+          icon: 'cube',
+          handler: async () => {
+            const alert = await this.alertController.create({
+              header: '合并记录',
+              message: '合并后，将会把所有数据合并为一条！确认合并？',
+              buttons: [
+                {
+                  text: '取消',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: () => {}
+                },
+                {
+                  text: '确定',
+                  handler: async () => {
+                    const sums = await this.appStoreService
+                      .getTotal(this.party.value)
+                      .pipe(
+                        map(x => {
+                          return x.count.map(y => {
+                            return {
+                              partner: y.partner,
+                              diff: y.diff
+                            };
+                          });
+                        })
+                      )
+                      .toPromise();
+
+                    const record: IRecord = {
+                      id: GetGUID(10),
+                      datetime: new Date(),
+                      banker: null,
+                      sums
+                    };
+
+                    this.party.value.records = [record];
+                    this.appStoreService.postParty(this.party.value);
+                  }
+                }
+              ]
+            });
+            alert.present();
           }
         },
         {

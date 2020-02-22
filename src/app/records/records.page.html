@@ -16,8 +16,8 @@
 
 <ion-content>
   <ng-container *ngIf="party.done && party.value">
-    <ion-list class="records-list" *ngIf="party.value.records.length">
-      <ion-item-sliding *ngFor="let record of party.value.records; let i = index;">
+    <ion-virtual-scroll class="record-list" [items]="party.value.records" approxItemHeight="83px" [trackBy]="trackBy" >
+      <ion-item-sliding *virtualItem="let record; let i = index;">
         <ion-item class="record-item" lines="none" no-padding>
           <div class="vui-col vui-no-padding">
             <div class="record-sum-wrap">
@@ -42,7 +42,7 @@
               <!--<div class="record-win">
                 <ion-badge color="primary">{{record.win.name}}</ion-badge>
               </div>-->
-              <div class="record-datetime">{{record.datetime | date:'HH:mm:ss'}}</div>
+              <div class="record-datetime">{{record.datetime | date:'MM-dd HH:mm:ss'}}</div>
             </div>
           </div>
         </ion-item>
@@ -50,7 +50,7 @@
           <ion-item-option color="secondary" (click)="remove(record)">删除</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
-    </ion-list>
+    </ion-virtual-scroll>
     <div class="vui-tc vui-mt20" *ngIf="party.value.records.length == 0; else fab" padding>
       <ion-button color="secondary" size="large" (click)="presentAddModal()">添加记录</ion-button>
     </div>

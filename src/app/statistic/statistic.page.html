@@ -3,75 +3,86 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="party.value">
-      统计（ {{party.value?.title}}）
+    <ion-title *ngIf="datasource.value">
+      统计（ {{datasource.value?.party.title}}）
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ng-container *ngIf="party.done && party.value && party.value.records.length">
+  <ng-container *ngIf="datasource.done && datasource.value && datasource.value.party.records.length">
+    <ion-item>
+      <ion-label>开始时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH点"
+                    [(ngModel)]="startDate.value"
+                    [min]="startDate.min | date:'yyyy-MM-ddTHH:mm:ss'"
+                    [max]="startDate.max | date:'yyyy-MM-ddTHH:mm:ss'"
+                    (ionChange)="startDateChanged()"
+                    doneText="确定"
+                    cancelText="取消"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>结束时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH点"
+                    [(ngModel)]="endData.value"
+                    [min]="endData.min | date:'yyyy-MM-ddTHH:mm:ss'"
+                    [max]="endData.max | date:'yyyy-MM-ddTHH:mm:ss'"
+                    (ionChange)="endDateChanged()"
+                    doneText="确定"
+                    cancelText="取消"></ion-datetime>
+    </ion-item>
     <div class="total" padding>
       <div class="title">对局数</div>
       <div class="desc">
-        这次总共玩了<span class="num">{{party.value.records.length}}</span>局
+        <span class="num">{{datasource.value.stats.total}}</span>局
       </div>
-      <div class="title">时间</div>
-      <div class="desc">
-        起始时间：{{party.value.records[party.value.records.length - 1].datetime | date:'yyyy-MM-dd HH:mm:ss'}}
-      </div>
-      <div class="desc">
-        结束时间：{{party.value.records[0].datetime | date:'yyyy-MM-dd HH:mm:ss'}}
-      </div>
-      <div class="desc">
-        持续时长：{{ data.latestime || '无'}}
-      </div>
+      <div class="title">持续时长</div>
+      <div class="desc">{{ datasource.value.stats.latestime || '无'}}</div>
       <div class="title">输赢情况</div>
-      <div class="desc" *ngFor="let item of data.count">
+      <div class="desc" *ngFor="let item of datasource.value.stats.count">
         <span class="vui-g0 vui-f14">{{item.partner.name}}
           ：</span>坐庄<span class="num">{{item.bankerNum}}</span>局，赢<span class="num">{{item.winNum}}</span>局，
         <span class="num" [ngClass]="{ diff: item.diff < 0, plus: item.diff > 0 }">{{item.diff > 0 ? '+' : '-'}}{{Math.abs(item.diff)}}</span>元
       </div>
       <div class="title">单局记录</div>
-      <div class="desc vui-row vui-no-padding vui-align-items-center" *ngIf="data.maxDiff">
-        <span class="vui-g9 vui-f12">赢的最多（{{data.maxDiff.partner.name}}
-          ：<span class="num" [ngClass]="{ diff: data.maxDiff.diff < 0, plus: data.maxDiff.diff > 0 }">{{data.maxDiff.diff > 0 ? '+' : '-'}}{{Math.abs(data.maxDiff.diff)}}</span>元）</span>
-        <ion-button class="icon-button" size="small" color="light" (click)="showRecordModal(data.maxDiff.record)">
+      <div class="desc vui-row vui-no-padding vui-align-items-center" *ngIf="datasource.value.stats.maxDiff">
+        <span class="vui-g9 vui-f12">赢的最多（{{datasource.value.stats.maxDiff.partner.name}}
+          ：<span class="num" [ngClass]="{ diff: datasource.value.stats.maxDiff.diff < 0, plus: datasource.value.stats.maxDiff.diff > 0 }">{{datasource.value.stats.maxDiff.diff > 0 ? '+' : '-'}}{{Math.abs(datasource.value.stats.maxDiff.diff)}}</span>元）</span>
+        <ion-button class="icon-button" size="small" color="light" (click)="showRecordModal(datasource.value.stats.maxDiff.record)">
           <ion-icon name="arrow-forward"></ion-icon>
         </ion-button>
       </div>
-      <div class="desc" *ngIf="data.minDiff">
-        <span class="vui-g9 vui-f12">输的最多（{{data.minDiff.partner.name}}
-          ：<span class="num" [ngClass]="{ diff: data.minDiff.diff < 0, plus: data.minDiff.diff > 0 }">{{data.minDiff.diff > 0 ? '+' : '-'}}{{Math.abs(data.minDiff.diff)}}</span>元）</span>
-        <ion-button class="icon-button" size="small" color="light" (click)="showRecordModal(data.minDiff.record)">
+      <div class="desc" *ngIf="datasource.value.stats.minDiff">
+        <span class="vui-g9 vui-f12">输的最多（{{datasource.value.stats.minDiff.partner.name}}
+          ：<span class="num" [ngClass]="{ diff: datasource.value.stats.minDiff.diff < 0, plus: datasource.value.stats.minDiff.diff > 0 }">{{datasource.value.stats.minDiff.diff > 0 ? '+' : '-'}}{{Math.abs(datasource.value.stats.minDiff.diff)}}</span>元）</span>
+        <ion-button class="icon-button" size="small" color="light" (click)="showRecordModal(datasource.value.stats.minDiff.record)">
           <ion-icon name="arrow-forward"></ion-icon>
         </ion-button>
       </div>
       <div class="title">连续记录</div>
-      <div class="desc" *ngIf="data.series.win.partner">
-        <span class="vui-g9 vui-f12">连赢最多（{{data.series.win.partner.name}}
-          ：<span class="num plus">{{data.series.win.num}}</span>局）</span>
+      <div class="desc" *ngIf="datasource.value.stats.series.win.partner">
+        <span class="vui-g9 vui-f12">连赢最多（{{datasource.value.stats.series.win.partner.name}}
+          ：<span class="num plus">{{datasource.value.stats.series.win.num}}</span>局）</span>
       </div>
-      <div class="desc" *ngIf="data.series.lose.partner">
-        <span class="vui-g9 vui-f12">连输最多（{{data.series.lose.partner.name}}
-          ：<span class="num diff">{{data.series.lose.num}}</span>局）</span>
+      <div class="desc" *ngIf="datasource.value.stats.series.lose.partner">
+        <span class="vui-g9 vui-f12">连输最多（{{datasource.value.stats.series.lose.partner.name}}
+          ：<span class="num diff">{{datasource.value.stats.series.lose.num}}</span>局）</span>
       </div>
     </div>
   </ng-container>
-  <ng-container *ngIf="party.done && !party.value.records.length">
+  <ng-container *ngIf="datasource.done && !datasource.value.party.records.length">
     <div class="vui-tc" padding>
       暂无记录
     </div>
   </ng-container>
-  <ng-container *ngIf="!party.done">
+  <ng-container *ngIf="!datasource.done">
     <div class="vui-tc" padding>
       <ion-spinner></ion-spinner>
     </div>
   </ng-container>
-  <ng-container *ngIf="party.failed">
+  <ng-container *ngIf="datasource.failed">
     <div class="vui-mt20 vui-tc">
-      <p>{{party.err}}</p>
-      <ion-button color="secondary" (click)="party.reload()">
+      <p>{{datasource.err}}</p>
+      <ion-button color="secondary" (click)="datasource.reload()">
         <ion-icon name="refresh"></ion-icon>&nbsp;重新加载
       </ion-button>
     </div>

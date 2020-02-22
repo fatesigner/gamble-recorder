@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -12,6 +12,7 @@ import { RecordComponent } from '../record/record.component';
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, StatisticPageRoutingModule],
   entryComponents: [RecordComponent],
+  providers: [DatePipe],
   declarations: [StatisticPage, RecordComponent]
 })
 export class StatisticPageModule {}

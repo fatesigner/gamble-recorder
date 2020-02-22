@@ -61,18 +61,27 @@ export class RecordsAddComponent implements OnInit {
       };
     });
     this.onDiffInputChange$.pipe(debounceTime(100)).subscribe(() => {
+      let sum;
       const num = this.record.sums.reduce((prev, cur) => {
-        if (this.selectedWinman.indexOf(cur.partner.id) > -1) {
-          return prev;
+        if (this.selectedWinman.length === 1) {
+          if (this.selectedWinman.indexOf(cur.partner.id) > -1) {
+            sum = cur;
+            return prev;
+          } else {
+            const diff = cur.diff ? parseInt(cur.diff.toString(), 10) : 0;
+            return prev + diff;
+          }
         } else {
-          const diff = cur.diff ? parseInt(cur.diff.toString(), 10) : 0;
-          return prev + diff;
+          if (this.selectedWinman.indexOf(cur.partner.id) > -1) {
+            const diff = cur.diff ? parseInt(cur.diff.toString(), 10) : 0;
+            return prev + diff;
+          } else {
+            sum = cur;
+            return prev;
+          }
         }
       }, 0);
-      const s = this.record.sums.find(
-        x => this.selectedWinman.indexOf(x.partner.id) > -1
-      );
-      s.diff = num;
+      sum.diff = num;
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import * as AppStore from '../store';
-import { IParty, IRecord } from '../store/models';
+import { IRecord } from '../store/models';
 
 @Component({
   selector: 'app-record',

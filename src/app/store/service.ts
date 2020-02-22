@@ -74,7 +74,7 @@ export class Service {
 
       let date = new Date('2020-01-25 13:52:00');
       for (let i = 0; i < total; i++) {
-        const sums = [];
+        let sums = [];
         let _wins = 0;
         let _winarr = [];
         let _losearr = [];
@@ -128,6 +128,10 @@ export class Service {
           }
         });
 
+        sums = sums.sort((a, b) => {
+          return a.partner.name.localeCompare(b.partner.name);
+        });
+
         const _date = new Date(date.getTime() + getRad(5, 25) * 60000);
         date = _date;
         const record: IRecord = {
@@ -142,6 +146,211 @@ export class Service {
       party.records = records;
       subscriber.next(party);
       subscriber.complete();
+    });
+  }
+
+  // 统计数据
+  getTotal(
+    party: IParty,
+    startDate?,
+    endDate?
+  ): Observable<{
+    total: number;
+    count: {
+      partner: IPartner;
+      bankerNum: number;
+      winNum: number;
+      diff: number;
+    }[];
+    dateStart: Date;
+    dateEnd: Date;
+    latestime: string;
+    maxDiff: {
+      record: IRecord;
+      partner: IPartner;
+      diff: number;
+    };
+    minDiff: {
+      record: IRecord;
+      partner: IPartner;
+      diff: number;
+    };
+    series: {
+      win: {
+        partner: IPartner;
+        num: number;
+      };
+      lose: {
+        partner: IPartner;
+        num: number;
+      };
+    };
+  }> {
+    return new Observable(subscriber => {
+      if (party.records.length) {
+        const data = {
+          total: 0,
+          count: [],
+          dateStart: null,
+          dateEnd: null,
+          latestime: '',
+          maxDiff: null,
+          minDiff: null,
+          series: {
+            win: null,
+            lose: null
+          }
+        };
+        let total = 0;
+        // 获取叫庄、输赢次数
+        const res: any = party.records.reduce(
+          (tmp, cur, index) => {
+            cur.datetime.setMilliseconds(0);
+            const times = cur.datetime.getTime();
+            // 过滤起始时间
+            if (startDate && times < new Date(startDate).getTime()) {
+              return tmp;
+            }
+            if (endDate && new Date(endDate).getTime() < times) {
+              return tmp;
+            }
+            if (cur.banker) {
+              if (tmp.sums[cur.banker.name]) {
+                tmp.sums[cur.banker.name].bankerNum += 1;
+              } else {
+                tmp.sums[cur.banker.name] = {
+                  partner: cur.banker,
+                  bankerNum: 1,
+                  winNum: 0,
+                  diff: 0,
+                  swinNum: 0,
+                  sloseNum: 0
+                };
+              }
+            }
+            tmp = cur.sums.reduce((tmp2, cur2) => {
+              if (tmp2.sums[cur2.partner.name]) {
+                tmp2.sums[cur2.partner.name].diff += cur2.diff;
+                tmp2.sums[cur2.partner.name].winNum += cur2.diff >= 0 ? 1 : 0;
+                if (cur2.diff > 0) {
+                  tmp2.sums[cur2.partner.name].swinNum += 1;
+                  if (
+                    tmp2.sums[cur2.partner.name].sloseNum > tmp2.series.lose.num
+                  ) {
+                    tmp2.series.lose.num =
+                      tmp2.sums[cur2.partner.name].sloseNum;
+                    tmp2.series.lose.partner = cur2.partner;
+                  } else {
+                    tmp2.sums[cur2.partner.name].sloseNum = 0;
+                  }
+                  if (index === party.records.length - 1) {
+                    if (
+                      tmp2.sums[cur2.partner.name].swinNum > tmp2.series.win.num
+                    ) {
+                      tmp2.series.win.num =
+                        tmp2.sums[cur2.partner.name].swinNum;
+                      tmp2.series.win.partner = cur2.partner;
+                    } else {
+                      tmp2.sums[cur2.partner.name].swinNum = 0;
+                    }
+                  }
+                } else {
+                  tmp2.sums[cur2.partner.name].sloseNum += 1;
+                  if (
+                    tmp2.sums[cur2.partner.name].swinNum > tmp2.series.win.num
+                  ) {
+                    tmp2.series.win.num = tmp2.sums[cur2.partner.name].swinNum;
+                    tmp2.series.win.partner = cur2.partner;
+                  } else {
+                    tmp2.sums[cur2.partner.name].swinNum = 0;
+                  }
+                  if (index === party.records.length - 1) {
+                    if (
+                      tmp2.sums[cur2.partner.name].sloseNum >
+                      tmp2.series.lose.num
+                    ) {
+                      tmp2.series.lose.num =
+                        tmp2.sums[cur2.partner.name].sloseNum;
+                      tmp2.series.lose.partner = cur2.partner;
+                    } else {
+                      tmp2.sums[cur2.partner.name].sloseNum = 0;
+                    }
+                  }
+                }
+              } else {
+                tmp2.sums[cur2.partner.name] = {
+                  partner: cur2.partner,
+                  bankerNum: 0,
+                  winNum: cur2.diff > 0 ? 1 : 0,
+                  diff: cur2.diff,
+                  swinNum: cur2.diff > 0 ? 1 : 0,
+                  sloseNum: cur2.diff < 0 ? 1 : 0
+                };
+              }
+              if (!tmp.maxDiff || cur2.diff > tmp.maxDiff.diff) {
+                tmp.maxDiff = cur2;
+                tmp.maxDiff.record = cur;
+              }
+              if (!tmp.minDiff || cur2.diff < tmp.minDiff.diff) {
+                tmp.minDiff = cur2;
+                tmp.minDiff.record = cur;
+              }
+              return tmp2;
+            }, tmp);
+            total++;
+            return tmp;
+          },
+          {
+            sums: {},
+            maxDiff: null,
+            minDiff: null,
+            series: {
+              win: {
+                partner: null,
+                num: 1
+              },
+              lose: {
+                partner: null,
+                num: 1
+              }
+            }
+          }
+        );
+        const arr: any = Object.values(res.sums);
+        data.total = total;
+        data.count = arr.sort((a: any, b: any) =>
+          a.diff > b.diff ? -1 : b.diff > a.diff ? 1 : 0
+        );
+        data.maxDiff = res.maxDiff;
+        data.minDiff = res.minDiff;
+        data.series = res.series;
+
+        // 持续时长
+        const date1 = party.records[
+          party.records.length - 1
+        ].datetime.getTime();
+        const date2 = party.records[0].datetime.getTime();
+        const diffTime = Math.abs(date1 - date2);
+        const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          ((diffTime % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor(
+          (((diffTime % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) %
+            (1000 * 60)) /
+            1000
+        );
+        data.latestime =
+          (days ? `${days}天` : '') +
+          (hours ? `${hours}小时` : '') +
+          (minutes ? `${minutes}分钟` : '') +
+          (seconds ? `${seconds}秒` : '');
+        subscriber.next(data);
+        subscriber.complete();
+      }
     });
   }
 

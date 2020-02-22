@@ -31,21 +31,29 @@
   <ng-container *ngIf="selectedWinman.length;else chosad">
     <ion-item>
       <div class="vui-col vui-no-padding">
-        <div class="vui-mt10 vui-f12 vui-g9">
-           赢&nbsp;<strong class="vui-green">{{totalDiff.add}}</strong>
+        <div class="vui-mt10 vui-f12 vui-g9" *ngIf="1 < selectedWinman.length && selectedWinman.length < party.partners.length - 1">
+          赢&nbsp;<strong class="vui-green">{{totalDiff.add}}</strong>
           &nbsp;输&nbsp;<strong class="vui-red">{{totalDiff.minus}}</strong>
           &nbsp;差&nbsp;<strong class="vui-red">{{totalDiff.add - totalDiff.minus}}</strong>
         </div>
-        <dl class="partner-input"
-            *ngFor="let sum of record.sums"
-            [ngClass]="{ win: selectedWinman.indexOf(sum.partner.id) > -1, winone: selectedWinman.indexOf(sum.partner.id) > -1 && selectedWinman.length === 1 }">
+        <dl class="partner-input" *ngFor="let sum of record.sums">
           <dt>{{sum.partner.name}}</dt>
           <dd *ngIf="selectedWinman.indexOf(sum.partner.id) > -1; else afas">
-            <div class="vui-row vui-no-padding vui-align-items-center"
-            *ngIf="selectedWinman.length === 1; else dasf">
-              <ion-icon name="add" color="#999"></ion-icon><ion-input type="number" [value]="sum.diff" readonly></ion-input>
+            <div class="vui-row vui-no-padding vui-align-items-center winone"
+                 *ngIf="selectedWinman.length === 1; else dasf">
+              <ion-icon name="add" color="#999"></ion-icon>
+              <ion-input type="number" [value]="sum.diff" readonly></ion-input>
             </div>
           </dd>
+          <ng-template #afas>
+            <dd>
+              <div class="vui-row vui-no-padding vui-align-items-center loseone"
+                   *ngIf="selectedWinman.length === party.partners.length - 1; else difasd">
+                <ion-icon name="remove" color="#999"></ion-icon>
+                <ion-input type="number" [value]="sum.diff" readonly></ion-input>
+              </div>
+            </dd>
+          </ng-template>
           <ng-template #dasf>
             <div class="vui-row vui-no-padding vui-align-items-center">
               <ion-icon name="add"></ion-icon>
@@ -53,20 +61,18 @@
                          type="number"
                          pattern="[0-9]*"
                          [(ngModel)]="sum.diff"
-                         (ngModelChange) ="selectedWinman.length === 1 && onDiffInputChange$.next()"></ion-input>
+                         (ngModelChange)="selectedWinman.length === party.partners.length - 1 && onDiffInputChange$.next()"></ion-input>
             </div>
           </ng-template>
-          <ng-template #afas>
-            <dd>
-              <div class="vui-row vui-no-padding vui-align-items-center">
-                <ion-icon name="remove"></ion-icon>
-                <ion-input placeholder="输了多少"
-                           type="number"
-                           pattern="[0-9]*"
-                           [(ngModel)]="sum.diff"
-                           (ngModelChange) ="selectedWinman.length === 1 && onDiffInputChange$.next()"></ion-input>
-              </div>
-            </dd>
+          <ng-template #difasd>
+            <div class="vui-row vui-no-padding vui-align-items-center">
+              <ion-icon name="remove"></ion-icon>
+              <ion-input placeholder="输了多少"
+                         type="number"
+                         pattern="[0-9]*"
+                         [(ngModel)]="sum.diff"
+                         (ngModelChange)="selectedWinman.length === 1 && onDiffInputChange$.next()"></ion-input>
+            </div>
           </ng-template>
         </dl>
       </div>
