@@ -45,7 +45,7 @@
     "@ionic/storage": "2.2.0",
     "@ngrx/effects": "8.6.0",
     "@ngrx/store": "8.6.0",
-    "cordova-android": "8.1.0",
+    "cordova-android": "9.0.0",
     "core-js": "2.5.4",
     "rxjs": "6.5.1",
     "tslib": "1.9.0",
